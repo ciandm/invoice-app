@@ -42,6 +42,7 @@ export default function App({ Component, pageProps }) {
       >
         <ThemeContext.Provider
           value={{
+            dark: themeState,
             toggleTheme,
           }}
         >
