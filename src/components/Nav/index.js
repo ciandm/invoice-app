@@ -9,10 +9,15 @@ function Nav() {
 
   return (
     <S.Nav>
-      <S.Logo src="/images/logo.svg" alt="Invoice app logo" />
+      <S.LogoContainer>
+        <S.Logo src="/images/logo.svg" alt="Invoice app logo" />
+      </S.LogoContainer>
       <S.Profile>
-        <S.Toggle>{dark ? <IconMoon /> : <IconSun />}</S.Toggle>
-        <S.Profile src="images/image-avatar.jpg" alt="Profile image" />
+        <S.Toggle onClick={() => toggleTheme()}>
+          {dark ? <IconSun /> : <IconMoon />}
+        </S.Toggle>
+        <S.Separator />
+        <S.Picture src="images/image-avatar.jpg" alt="Profile image" />
       </S.Profile>
     </S.Nav>
   );
