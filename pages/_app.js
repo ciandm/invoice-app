@@ -1,8 +1,29 @@
-import { ThemeProvider } from 'styled-components';
+import { createContext, useContext } from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import Head from 'next/head';
 import GlobalStyle from '../src/theme/GlobalStyle';
+import theme from '../src/theme/theme';
+import useDarkMode from '../src/hooks/useDarkMode';
+
+const ThemeContext = createContext({
+  dark: false,
+  toggleTheme: () => {},
+});
+
+const useTheme = () => useContext(ThemeContext);
 
 export default function App({ Component, pageProps }) {
+  const { themeState, setThemeState } = useDarkMode();
+
+  // function to toggle users theme
+  const toggleTheme = () => {
+    const dark = !themeState.dark;
+    localStorage.setItem('darkMode', JSON.stringify(dark));
+    setThemeState(prevState => ({
+      ...prevState,
+      dark,
+    }));
+  };
   return (
     <>
       <Head>
@@ -12,10 +33,19 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <StyledThemeProvider theme={theme}>
+        <ThemeContext.Provider
+          value={{
+            dark: themeState,
+            toggleTheme,
+          }}
+        >
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </ThemeContext.Provider>
+      </StyledThemeProvider>
     </>
   );
 }
+
+export { useTheme };
