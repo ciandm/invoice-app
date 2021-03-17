@@ -12,6 +12,7 @@ function InvoicesHome({ children }) {
       <Wrapper>
         <Invoices>
           <InvoiceCard />
+          <InvoiceCard />
         </Invoices>
       </Wrapper>
     </S.Container>

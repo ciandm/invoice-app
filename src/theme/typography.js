@@ -6,3 +6,10 @@ export const H4 = css`
   line-height: 15px;
   letter-spacing: -0.25px;
 `;
+
+export const H3 = css`
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.8px;
+`;
