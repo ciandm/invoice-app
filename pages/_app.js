@@ -33,10 +33,14 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <StyledThemeProvider theme={theme}>
+      <StyledThemeProvider
+        theme={{
+          constants: theme,
+          dark: themeState,
+        }}
+      >
         <ThemeContext.Provider
           value={{
-            dark: themeState,
             toggleTheme,
           }}
         >

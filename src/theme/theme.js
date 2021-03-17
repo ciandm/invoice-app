@@ -1,4 +1,4 @@
-export const theme = {
+const theme = {
   colors: {
     athensGray: 'hsl(240, 27%, 98%)',
     baliHai: 'hsl(231, 20%, 61%)',
@@ -13,5 +13,10 @@ export const theme = {
     selago: 'hsl(231, 73%, 93%)',
     shipCove: 'hsl(231, 37%, 63%)',
   },
-  mediaQueries: {},
+  mediaQueries: {
+    desktop: 'screen and (min-width: 1110px)',
+    tablet: 'screen and (min-width: 768px)',
+  },
 };
+
+export default theme;
