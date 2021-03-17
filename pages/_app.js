@@ -6,7 +6,7 @@ import theme from '../src/theme/theme';
 import useDarkMode from '../src/hooks/useDarkMode';
 
 const ThemeContext = createContext({
-  dark: false,
+  darkMode: false,
   toggleTheme: () => {},
 });
 
@@ -36,13 +36,14 @@ export default function App({ Component, pageProps }) {
       </Head>
       <StyledThemeProvider
         theme={{
+          // theme includes colours & media queries.
           constants: theme,
-          dark: themeState,
+          darkMode: themeState.dark,
         }}
       >
         <ThemeContext.Provider
           value={{
-            dark: themeState,
+            darkMode: themeState.dark,
             toggleTheme,
           }}
         >

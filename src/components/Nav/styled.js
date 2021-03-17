@@ -10,6 +10,7 @@ export const Nav = styled.nav`
   justify-content: space-between;
 
   @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    border-radius: 0 2rem 2rem 0;
     flex-direction: column;
     height: 100vh;
   }
@@ -79,6 +80,10 @@ export const Toggle = styled.button`
   & svg {
     height: 2rem;
     width: 2rem;
+  }
+
+  &:hover svg path {
+    fill: ${({ theme }) => theme.constants.colors.selago};
   }
 `;
 

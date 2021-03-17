@@ -5,7 +5,7 @@ import { ReactComponent as IconSun } from '../../../public/images/icon-sun.svg';
 import { useTheme } from '../../../pages/_app';
 
 function Nav() {
-  const { dark, toggleTheme } = useTheme();
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
     <S.Nav>
@@ -14,7 +14,7 @@ function Nav() {
       </S.LogoContainer>
       <S.Profile>
         <S.Toggle onClick={() => toggleTheme()}>
-          {dark ? <IconSun /> : <IconMoon />}
+          {darkMode ? <IconSun /> : <IconMoon />}
         </S.Toggle>
         <S.Separator />
         <S.Picture src="images/image-avatar.jpg" alt="Profile image" />

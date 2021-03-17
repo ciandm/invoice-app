@@ -10,23 +10,31 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${({ theme }) =>
-      theme.dark
+      theme.darkMode
         ? theme.constants.colors.mirage
         : theme.constants.colors.athensGray};
   }
+  
   #__next {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
+
   a {
     color: inherit;
     text-decoration: none;
   }
+
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
 `;
 
