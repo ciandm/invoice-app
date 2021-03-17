@@ -12,6 +12,7 @@ const theme = {
     monaLisa: 'hsl(0, 100%, 80%)',
     selago: 'hsl(231, 73%, 93%)',
     shipCove: 'hsl(231, 37%, 63%)',
+    white: 'hsl(255, 100%, 100%)',
   },
   mediaQueries: {
     desktop: 'screen and (min-width: 1110px)',

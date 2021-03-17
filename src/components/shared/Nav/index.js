@@ -1,8 +1,8 @@
 import React from 'react';
 import * as S from './styled';
-import { ReactComponent as IconMoon } from '../../../public/images/icon-moon.svg';
-import { ReactComponent as IconSun } from '../../../public/images/icon-sun.svg';
-import { useTheme } from '../../../pages/_app';
+import { ReactComponent as IconMoon } from '../../../../public/images/icon-moon.svg';
+import { ReactComponent as IconSun } from '../../../../public/images/icon-sun.svg';
+import { useTheme } from '../../../../pages/_app';
 
 function Nav() {
   const { darkMode, toggleTheme } = useTheme();
