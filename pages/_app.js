@@ -13,7 +13,7 @@ const ThemeContext = createContext({
 const useTheme = () => useContext(ThemeContext);
 
 export default function App({ Component, pageProps }) {
-  const { themeState, setThemeState } = useDarkMode();
+  const [themeState, setThemeState] = useDarkMode();
 
   // function to toggle users theme
   const toggleTheme = () => {
@@ -24,6 +24,7 @@ export default function App({ Component, pageProps }) {
       dark,
     }));
   };
+
   return (
     <>
       <Head>

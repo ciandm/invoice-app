@@ -1,12 +1,18 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  html,
-  body {
+  html {
     font-family: 'Spartan', sans-serif;
     font-size: 62.5%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: ${({ theme }) =>
+      theme.dark
+        ? theme.constants.colors.mirage
+        : theme.constants.colors.athensGray};
   }
   #__next {
     display: flex;
