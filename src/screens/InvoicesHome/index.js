@@ -1,20 +1,20 @@
 import React from 'react';
 import * as S from './styled';
 import Nav from '../../components/shared/Nav';
-import Wrapper from '../../components/shared/Wrapper';
 import Invoices from '../../components/Invoices';
 import InvoiceCard from '../../components/Invoices/InvoiceCard';
+import { InvoiceList } from '../../components/Invoices/InvoiceList/styled';
 
-function InvoicesHome({ children }) {
+function InvoicesHome() {
   return (
     <S.Container>
       <Nav />
-      <Wrapper>
+      <InvoiceList>
         <Invoices>
           <InvoiceCard />
           <InvoiceCard />
         </Invoices>
-      </Wrapper>
+      </InvoiceList>
     </S.Container>
   );
 }

@@ -7,11 +7,17 @@ export const Container = styled.div`
       ? theme.constants.colors.blackPearl
       : theme.constants.colors.white};
   border-radius: 0.8rem;
+  border: 1px solid transparent;
+  cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, min-content);
   padding: 2.4rem;
   width: 100%;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
+  }
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     align-items: center;
