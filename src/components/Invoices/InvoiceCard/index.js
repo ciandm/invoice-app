@@ -8,15 +8,17 @@ function InvoiceCard() {
     <S.Container>
       <S.Id>
         <S.Hashtag>#</S.Hashtag>
-        ieiee
+        XM9141
       </S.Id>
       <S.Name>Jensen Huang</S.Name>
       <S.Date>Due 19 Aug 2021</S.Date>
       <S.Price>£1,800.90</S.Price>
-      <S.Status status="paid">Paid</S.Status>
-      <S.Arrow>
-        <ArrowRight />
-      </S.Arrow>
+      <S.Group>
+        <S.Status status="paid">Paid</S.Status>
+        <S.Arrow>
+          <ArrowRight />
+        </S.Arrow>
+      </S.Group>
     </S.Container>
   );
 }

@@ -15,9 +15,14 @@ export const Container = styled.div`
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     align-items: center;
-    grid-template-columns: min-content repeat(4, max-content) min-content;
-    grid-template-rows: 1fr;
-    justify-content: stretch;
+    display: grid;
+    grid-template-columns:
+      9rem
+      max-content
+      1fr
+      1fr
+      min-content;
+    justify-content: space-between;
     padding: 1.6rem 2.4rem;
   }
 `;
@@ -34,7 +39,6 @@ export const Id = styled.p`
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-column: 1 / 2;
     padding-bottom: 0;
-    padding-right: 2.8rem;
   }
 `;
 
@@ -44,19 +48,25 @@ export const Hashtag = styled.span`
 
 export const Name = styled.p`
   ${H4};
-  color: ${({ theme }) => theme.constants.colors.white};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.baliHai};
   font-weight: 500;
   justify-self: end;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-column: 3 / 4;
+    grid-row: 1 / 2;
     justify-self: start;
+    order: 3;
+    text-align: left;
   }
 `;
 
 export const Date = styled.p`
   ${H4};
-  color: ${({ theme }) => theme.constants.colors.selago};
+  color: ${({ theme }) => theme.constants.colors.shipCove};
   grid-column: 1 / 2;
   grid-row: 2 / 3;
   font-weight: 500;
@@ -65,19 +75,40 @@ export const Date = styled.p`
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+    margin: 0 3.2rem 0 0;
+    order: 2;
     padding-bottom: 0;
   }
 `;
 
 export const Price = styled.h2`
   ${H3};
-  color: ${({ theme }) => theme.constants.colors.white};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.chartreuseYellow};
   grid-column: 1 / 2;
   grid-row: 3 / 4;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-column: 4 / 5;
-    grid-row: 1 / 1;
+    grid-row: unset;
+    margin-left: auto;
+    order: 4;
+    text-align: right;
+  }
+`;
+
+export const Group = styled.div`
+  align-items: center;
+  display: flex;
+  grid-column: 2 / 3;
+  grid-row: 2 / 4;
+  justify-self: end;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    grid-column: 5 / 6;
+    grid-row: 1 / 2;
   }
 `;
 
@@ -98,10 +129,7 @@ export const Status = styled.div`
       ? 'hsl(34, 100%, 50%)'
       : 'hsl(231, 75%, 93%)'};
   display: flex;
-  grid-column: 2 / 3;
-  grid-row: 2 / 4;
   justify-content: center;
-  justify-self: end;
   min-width: 10.4rem;
   padding: 1.2rem 1.8rem;
 
@@ -117,13 +145,14 @@ export const Status = styled.div`
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-column: 5 / 6;
-    grid-row: unset;
+    grid-row: 1 / 2;
     margin: 0 2rem 0 4rem;
   }
 `;
 
 export const Arrow = styled.div`
   display: none;
+  order: 7;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     display: inline-block;
