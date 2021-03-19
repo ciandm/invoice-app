@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { H4, H3 } from '../../../theme/typography';
 
-export const Container = styled.div`
+export const Card = styled.a`
   background-color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.blackPearl

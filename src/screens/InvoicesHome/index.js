@@ -4,6 +4,7 @@ import Nav from '../../components/shared/Nav';
 import Invoices from '../../components/Invoices';
 import InvoiceCard from '../../components/Invoices/InvoiceCard';
 import { InvoiceList } from '../../components/Invoices/InvoiceList/styled';
+import invoices from '../../../data/data.json';
 
 function InvoicesHome() {
   return (
@@ -11,8 +12,9 @@ function InvoicesHome() {
       <Nav />
       <InvoiceList>
         <Invoices>
-          <InvoiceCard />
-          <InvoiceCard />
+          {invoices.map(i => (
+            <InvoiceCard key={i.id} {...i} />
+          ))}
         </Invoices>
       </InvoiceList>
     </S.Container>
