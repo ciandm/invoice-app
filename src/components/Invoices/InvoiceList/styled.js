@@ -12,7 +12,7 @@ export const InvoiceList = styled.div`
 
   @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
     display: grid;
-    gap: 3rem;
+    gap: 0 3rem;
     grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: max-content;
     margin: 0 auto;
