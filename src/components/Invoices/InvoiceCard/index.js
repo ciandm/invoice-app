@@ -5,6 +5,15 @@ import * as S from './styled';
 import { ReactComponent as ArrowRight } from '../../../../public/images/icon-arrow-right.svg';
 
 function InvoiceCard({ clientName, id, paymentDue, status, total }) {
+  const getDateWords = d => {
+    const date = new Date(d);
+    date.toString();
+    return date
+      .toString()
+      .split(' ')
+      .slice(1, 4)
+      .join(' ');
+  };
   return (
     <Link href={`/${id}`} passHref>
       <S.Card>
@@ -13,7 +22,7 @@ function InvoiceCard({ clientName, id, paymentDue, status, total }) {
           {id}
         </S.Id>
         <S.Name>{clientName}</S.Name>
-        <S.Date>Due 19 Aug 2021</S.Date>
+        <S.Date>Due {getDateWords(paymentDue)}</S.Date>
         <S.Price>£ {total.toFixed(2)}</S.Price>
         <S.Group>
           <S.Status status={status}>
