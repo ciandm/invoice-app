@@ -82,9 +82,16 @@ export const Filters = styled.ul`
       ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
       : '0px 10px 20px rgba(72, 84, 159, 0.25)'};
   left: calc(0 - 50%);
+  list-style: none;
   margin-top: 2.4rem;
   padding: 2.4rem;
   position: absolute;
   top: 100%;
   width: 19.2rem;
+`;
+
+export const Filter = styled.li`
+  & + & {
+    margin-top: 1.6rem;
+  }
 `;

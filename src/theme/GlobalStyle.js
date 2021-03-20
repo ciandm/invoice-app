@@ -37,6 +37,12 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     font-family: inherit;
   }
+
+  *:focus {
+    box-shadow: ${({ theme }) =>
+      `0 0 0 3px ${theme.constants.colors.heliotrope}`} ;
+    outline: none;
+  }
 `;
 
 export default GlobalStyle;

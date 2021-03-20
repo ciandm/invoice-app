@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './styled';
 import Nav from '../../components/shared/Nav';
 import InvoiceList from '../../components/Invoices/InvoiceList';
@@ -8,6 +8,11 @@ import InvoicesHeader from '../../components/Invoices/InvoicesHeader/index';
 import InvoiceEmpty from '../../components/Invoices/InvoiceEmpty';
 
 function InvoicesHome() {
+  const [activeFilters, setActiveFilters] = useState({
+    draft: false,
+    pending: false,
+    paid: false,
+  });
   return (
     <S.Container>
       <Nav />

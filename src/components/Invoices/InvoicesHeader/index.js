@@ -4,6 +4,7 @@ import * as S from './styled';
 import Button from '../../shared/Button';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { ReactComponent as ArrowDown } from '../../../../public/images/icon-arrow-down.svg';
+import Checkbox from '../../shared/Checkbox';
 
 function InvoicesHeader({ invoiceCount }) {
   const windowSize = useWindowSize();
@@ -18,7 +19,17 @@ function InvoicesHeader({ invoiceCount }) {
           <S.FilterToggle>
             Filter by status <ArrowDown />
           </S.FilterToggle>
-          <S.Filters />
+          <S.Filters>
+            <S.Filter>
+              <Checkbox label="Draft" />
+            </S.Filter>
+            <S.Filter>
+              <Checkbox label="Pending" />
+            </S.Filter>
+            <S.Filter>
+              <Checkbox label="Paid" />
+            </S.Filter>
+          </S.Filters>
         </S.FilterWrapper>
         <Button variation="one">
           {windowSize > 768 ? 'New Invoice' : 'New'}
