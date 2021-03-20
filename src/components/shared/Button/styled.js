@@ -19,7 +19,7 @@ export const ButtonOne = styled(Button)`
   padding: 0.8rem 1.6rem 0.8rem 0.8rem;
 
   &:hover {
-    background-color: ${({ theme }) => theme.constants.colors.helioTrope};
+    background-color: ${({ theme }) => theme.constants.colors.heliotrope};
   }
 `;
 

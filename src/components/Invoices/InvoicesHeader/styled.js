@@ -6,7 +6,18 @@ export const Header = styled.header`
   justify-content: space-between;
   grid-row: 1 / 2;
   grid-column: 3 / 11;
-  padding-bottom: 6.4rem;
+  padding-bottom: 3.2rem;
+  width: 100%;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding-bottom: 5.6rem;
+  }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    grid-row: 1 / 2;
+    grid-column: 3 / 11;
+    padding-bottom: 6.4rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -27,6 +38,7 @@ export const Title = styled.h1`
 
 export const Pending = styled.p`
   ${H4};
+  font-weight: 500;
   color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.selago

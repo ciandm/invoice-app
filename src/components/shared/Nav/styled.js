@@ -13,6 +13,7 @@ export const Nav = styled.nav`
     border-radius: 0 2rem 2rem 0;
     flex-direction: column;
     height: 100vh;
+    position: fixed;
   }
 `;
 
