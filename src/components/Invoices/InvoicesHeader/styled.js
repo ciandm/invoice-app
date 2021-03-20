@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { H1, H4 } from '../../../theme/typography';
+import { H1, H4, BodyOne } from '../../../theme/typography';
 
 export const Header = styled.header`
   display: flex;
@@ -43,4 +43,48 @@ export const Pending = styled.p`
     theme.darkMode
       ? theme.constants.colors.selago
       : theme.constants.colors.baliHai};
+`;
+
+export const FilterWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-right: 4rem;
+  position: relative;
+`;
+
+export const FilterToggle = styled.button`
+  ${BodyOne};
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.chartreuseYellow};
+  display: flex;
+  font-weight: 700;
+  position: relative;
+
+  & svg {
+    margin-left: 1.6rem;
+  }
+`;
+
+export const Filters = styled.ul`
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.ebonyClay
+      : theme.constants.colors.white};
+  border-radius: 0.8rem;
+  box-shadow: ${({ theme }) =>
+    theme.darkMode
+      ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
+      : '0px 10px 20px rgba(72, 84, 159, 0.25)'};
+  left: calc(0 - 50%);
+  margin-top: 2.4rem;
+  padding: 2.4rem;
+  position: absolute;
+  top: 100%;
+  width: 19.2rem;
 `;

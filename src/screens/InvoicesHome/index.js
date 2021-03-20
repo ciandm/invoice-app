@@ -12,8 +12,8 @@ function InvoicesHome() {
     <S.Container>
       <Nav />
       <Invoices>
-        <InvoicesHeader />
-        {invoices.length > 0 ? (
+        <InvoicesHeader invoiceCount={invoices.length || 0} />
+        {invoices.length > 0 || !invoices ? (
           <>
             <InvoiceList invoices={invoices} />
           </>

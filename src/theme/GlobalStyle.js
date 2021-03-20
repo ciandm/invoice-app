@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     border: none;
     cursor: pointer;
+    font-family: inherit;
   }
 `;
 
