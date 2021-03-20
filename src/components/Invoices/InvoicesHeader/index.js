@@ -6,7 +6,12 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import { ReactComponent as ArrowDown } from '../../../../public/images/icon-arrow-down.svg';
 import Checkbox from '../../shared/Checkbox';
 
-function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
+function InvoicesHeader({
+  activeFilters,
+  handleCheckboxClick,
+  invoiceCount,
+  toggleNewInvoice,
+}) {
   const windowSize = useWindowSize();
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -60,7 +65,7 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
             </S.Filter>
           </S.Filters>
         </S.FilterWrapper>
-        <Button variation="one">
+        <Button variation="one" handleButtonClick={toggleNewInvoice}>
           {windowSize > 768 ? 'New Invoice' : 'New'}
         </Button>
       </S.Content>

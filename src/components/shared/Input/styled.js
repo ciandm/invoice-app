@@ -26,11 +26,13 @@ export const Input = styled.input`
       theme.darkMode
         ? theme.constants.colors.ebonyClay
         : theme.constants.colors.selago};
-  background-color: ${({ theme }) =>
+  border-radius: 4px;
+  color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
   font-family: inherit;
   font-weight: 700;
   padding: 1.6rem 2rem;
+  width: 100%;
 `;

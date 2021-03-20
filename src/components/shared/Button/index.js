@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import * as S from './styled';
 import { ReactComponent as PlusIcon } from '../../../../public/images/icon-plus.svg';
 
-function Button({ variation, children }) {
+function Button({ variation, children, handleButtonClick }) {
   if (variation === 'one') {
     return (
-      <S.ButtonOne>
+      <S.ButtonOne onClick={() => handleButtonClick()}>
         <S.Icon>
           <PlusIcon />
         </S.Icon>{' '}
