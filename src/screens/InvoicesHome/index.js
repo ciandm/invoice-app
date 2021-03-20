@@ -10,17 +10,27 @@ import InvoiceEmpty from '../../components/Invoices/InvoiceEmpty';
 function InvoicesHome() {
   const [activeFilters, setActiveFilters] = useState({
     draft: false,
-    pending: false,
     paid: false,
+    pending: false,
   });
+  const handleCheckboxClick = filterName => {
+    setActiveFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: !prevFilters[filterName],
+    }));
+  };
   return (
     <S.Container>
       <Nav />
       <Invoices>
-        <InvoicesHeader invoiceCount={invoices.length || 0} />
+        <InvoicesHeader
+          activeFilters={activeFilters}
+          handleCheckboxClick={handleCheckboxClick}
+          invoiceCount={invoices.length || 0}
+        />
         {invoices.length > 0 || !invoices ? (
           <>
-            <InvoiceList invoices={invoices} />
+            <InvoiceList activeFilters={activeFilters} invoices={invoices} />
           </>
         ) : (
           <InvoiceEmpty />

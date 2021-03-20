@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { H1, H4, BodyOne } from '../../../theme/typography';
 
 export const Header = styled.header`
@@ -49,8 +49,13 @@ export const FilterWrapper = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-right: 4rem;
+  margin-bottom: -2.4rem;
+  padding: 0 1.8rem 2.4rem;
   position: relative;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding: 0 4rem 2.4rem;
+  }
 `;
 
 export const FilterToggle = styled.button`
@@ -62,16 +67,54 @@ export const FilterToggle = styled.button`
     theme.darkMode
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
+  cursor: initial;
   display: flex;
   font-weight: 700;
   position: relative;
 
   & svg {
     margin-left: 1.6rem;
+    transform: ${({ open }) => (open ? 'rotate(180deg)' : null)};
+    transition: transform 0.25s ease-in-out;
+  }
+`;
+
+export const SlideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const SlideOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(2rem);
   }
 `;
 
 export const Filters = styled.ul`
+  animation-name: ${({ open }) =>
+    open
+      ? css`
+          ${SlideIn}
+        `
+      : css`
+          ${SlideOut}
+        `};
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
   background-color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.ebonyClay
@@ -81,16 +124,20 @@ export const Filters = styled.ul`
     theme.darkMode
       ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
       : '0px 10px 20px rgba(72, 84, 159, 0.25)'};
+  cursor: initial;
   left: calc(0 - 50%);
   list-style: none;
-  margin-top: 2.4rem;
   padding: 2.4rem;
   position: absolute;
   top: 100%;
-  width: 19.2rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    width: 19.2rem;
+  }
 `;
 
 export const Filter = styled.li`
+  width: 100%;
   & + & {
     margin-top: 1.6rem;
   }

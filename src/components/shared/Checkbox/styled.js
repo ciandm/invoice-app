@@ -5,7 +5,10 @@ export const Wrapper = styled.button`
   align-items: center;
   cursor: pointer;
   display: flex;
-  width: 100%;
+
+  &:focus {
+    box-shadow: unset;
+  }
 `;
 
 export const HiddenCheckbox = styled.input.attrs({
@@ -41,12 +44,8 @@ export const Checkbox = styled.div`
   transition: all 150ms;
   width: 16px;
 
-  ${HiddenCheckbox}:focus + & {
-    box-shadow: ${({ theme }) =>
-      `0 0 0 3px ${theme.constants.colors.cornflowerBlue}`};
-  }
-
-  &:hover {
+  ${Wrapper}:focus &,
+  ${Wrapper}:hover & {
     border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
   }
 
