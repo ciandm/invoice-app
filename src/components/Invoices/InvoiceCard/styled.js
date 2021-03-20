@@ -121,19 +121,23 @@ export const Group = styled.div`
 export const Status = styled.div`
   ${H4};
   align-items: center;
-  background-color: ${({ status }) =>
+  background-color: ${({ status, theme }) =>
     status === 'paid'
       ? 'hsla(160, 67%, 52%, 0.06)'
       : status === 'pending'
       ? 'hsla(34, 100%, 50%, 0.06)'
-      : 'hsla(231, 75%, 93%, 0.06)'};
+      : theme.darkMode // draft
+      ? 'hsla(231, 75%, 93%, 0.06)'
+      : 'hsla(231, 20%, 27%, 0.06)'};
   border-radius: 6px;
-  color: ${({ status }) =>
+  color: ${({ status, theme }) =>
     status === 'paid'
       ? 'hsl(160, 67%, 52%)'
       : status === 'pending'
       ? 'hsl(34, 100%, 50%)'
-      : 'hsl(231, 75%, 93%)'};
+      : theme.darkMode // draft
+      ? 'hsl(231, 75%, 93%)'
+      : 'hsl(231,20%,27%)'};
   display: flex;
   justify-content: center;
   min-width: 10.4rem;

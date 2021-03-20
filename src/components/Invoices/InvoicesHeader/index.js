@@ -28,7 +28,7 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
           onMouseLeave={() => setFiltersOpen(false)}
         >
           <S.FilterToggle open={filtersOpen}>
-            {windowSize > 768 ? 'Filter by size' : 'Filter'} <ArrowDown />
+            {windowSize > 768 ? 'Filter by status' : 'Filter'} <ArrowDown />
           </S.FilterToggle>
           <S.Filters open={filtersOpen}>
             <S.Filter>
