@@ -2,9 +2,15 @@ import { css } from 'styled-components';
 
 export const H1 = css`
   font-weight: bold;
-  font-size: 32px;
-  line-height: 36px;
-  letter-spacing: -1px;
+  font-size: 2rem;
+  line-height: 2.2rem;
+  letter-spacing: -0.0625px;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    font-size: 3.2rem;
+    line-height: 3.6rem;
+    letter-spacing: -1px;
+  }
 `;
 
 export const H2 = css`

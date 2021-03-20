@@ -129,6 +129,7 @@ export const Filters = styled.ul`
   list-style: none;
   padding: 2.4rem;
   position: absolute;
+  pointer-events: ${({ open }) => (!open ? 'none' : null)};
   top: 100%;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {

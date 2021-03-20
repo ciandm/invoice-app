@@ -44,8 +44,8 @@ export const Checkbox = styled.div`
   transition: all 150ms;
   width: 16px;
 
-  ${Wrapper}:focus &,
-  ${Wrapper}:hover & {
+  ${Wrapper}:hover &,
+  ${Wrapper}:focus & {
     border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
   }
 

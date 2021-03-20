@@ -14,7 +14,13 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
     <S.Header>
       <S.Content direction="column">
         <S.Title>Invoices</S.Title>
-        <S.Pending>There are {invoiceCount} pending invoices</S.Pending>
+        <S.Pending>
+          {invoiceCount < 1
+            ? 'No invoices'
+            : windowSize < 768
+            ? `${invoiceCount} invoices`
+            : `There are ${invoiceCount} invoices`}
+        </S.Pending>
       </S.Content>
       <S.Content direction="row">
         <S.FilterWrapper
@@ -24,34 +30,35 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
           <S.FilterToggle open={filtersOpen}>
             {windowSize > 768 ? 'Filter by size' : 'Filter'} <ArrowDown />
           </S.FilterToggle>
-          {filtersOpen ? (
-            <S.Filters open={filtersOpen}>
-              <S.Filter>
-                <Checkbox
-                  checked={activeFilters.draft}
-                  name="draft"
-                  handleCheckboxClick={handleCheckboxClick}
-                  label="Draft"
-                />
-              </S.Filter>
-              <S.Filter>
-                <Checkbox
-                  checked={activeFilters.pending}
-                  name="pending"
-                  handleCheckboxClick={handleCheckboxClick}
-                  label="Pending"
-                />
-              </S.Filter>
-              <S.Filter>
-                <Checkbox
-                  checked={activeFilters.paid}
-                  name="paid"
-                  handleCheckboxClick={handleCheckboxClick}
-                  label="Paid"
-                />
-              </S.Filter>
-            </S.Filters>
-          ) : null}
+          <S.Filters open={filtersOpen}>
+            <S.Filter>
+              <Checkbox
+                checked={activeFilters.draft}
+                name="draft"
+                handleCheckboxClick={handleCheckboxClick}
+                label="Draft"
+                tabIndex={filtersOpen ? null : -1}
+              />
+            </S.Filter>
+            <S.Filter>
+              <Checkbox
+                checked={activeFilters.pending}
+                name="pending"
+                handleCheckboxClick={handleCheckboxClick}
+                label="Pending"
+                tabIndex={filtersOpen ? null : -1}
+              />
+            </S.Filter>
+            <S.Filter>
+              <Checkbox
+                checked={activeFilters.paid}
+                name="paid"
+                handleCheckboxClick={handleCheckboxClick}
+                label="Paid"
+                tabIndex={filtersOpen ? null : -1}
+              />
+            </S.Filter>
+          </S.Filters>
         </S.FilterWrapper>
         <Button variation="one">
           {windowSize > 768 ? 'New Invoice' : 'New'}
