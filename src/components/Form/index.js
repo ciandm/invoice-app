@@ -160,6 +160,15 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           </S.InputGroup>
         </S.FormGroup>
         <S.InvoiceInfoGroup>
+          <Input
+            label="Invoice Date"
+            name="date"
+            data-value-group="invoice"
+            id="invoice-date"
+            value={values.invoice.date}
+            handleInputChange={handleInputChange}
+            type="date"
+          />
           <Select
             value={values.invoice.terms}
             data-value-group="invoice"

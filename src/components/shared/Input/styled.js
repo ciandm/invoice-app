@@ -19,7 +19,9 @@ export const Label = styled.label`
   padding-bottom: 1rem;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input.attrs(({ type }) => ({
+  type: type || 'text',
+}))`
   ${BodyOne};
   background-color: ${({ theme }) =>
     theme.darkMode
@@ -39,4 +41,8 @@ export const Input = styled.input`
   font-weight: 700;
   padding: 1.6rem 2rem;
   width: 100%;
+
+  &::-webkit-calendar-picker-indicator {
+    fill: red;
+  }
 `;

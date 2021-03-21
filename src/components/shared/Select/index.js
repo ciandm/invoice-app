@@ -29,29 +29,27 @@ function Select({
   };
 
   return (
-    <S.Group>
-      <S.SelectContainer
-        onFocus={() => openSelect()}
-        onBlur={e => closeSelect(e)}
-      >
-        <S.Label onClick={() => selectRef.current.focus()}>{label}</S.Label>
-        <S.Select tabIndex={0} ref={selectRef}>
-          {value || 'Select option'} <ArrowDown />
-        </S.Select>
-        <S.Options open={isOpen}>
-          {options &&
-            options.map(option => (
-              <S.Option
-                tabIndex={0}
-                key={option}
-                onClick={() => handleClick(option)}
-              >
-                {option}
-              </S.Option>
-            ))}
-        </S.Options>
-      </S.SelectContainer>
-    </S.Group>
+    <S.SelectContainer
+      onFocus={() => openSelect()}
+      onBlur={e => closeSelect(e)}
+    >
+      <S.Label onClick={() => selectRef.current.focus()}>{label}</S.Label>
+      <S.Select tabIndex={0} ref={selectRef} open={isOpen}>
+        {value || 'Select option'} <ArrowDown />
+      </S.Select>
+      <S.Options open={isOpen}>
+        {options &&
+          options.map(option => (
+            <S.Option
+              tabIndex={0}
+              key={option}
+              onClick={() => handleClick(option)}
+            >
+              {option}
+            </S.Option>
+          ))}
+      </S.Options>
+    </S.SelectContainer>
   );
 }
 

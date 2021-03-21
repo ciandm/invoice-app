@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { BodyOne } from '../../../theme/typography';
 
-export const Group = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +40,11 @@ export const Select = styled.div`
   padding: 1.6rem 1.6rem 1.6rem 2rem;
   width: 100%;
 
+  & svg {
+    transform: ${({ open }) => (open ? 'rotate(180deg)' : null)};
+    transition: transform 0.25s ease-in-out;
+  }
+
   ${SelectContainer}:hover & {
     border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
   }
@@ -74,6 +74,8 @@ export const Option = styled.li`
     theme.darkMode
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
+  font-family: inherit;
+  font-weight: 700;
   padding: 1.6rem 2.4rem;
 
   &:hover,
