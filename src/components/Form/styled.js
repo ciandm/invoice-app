@@ -150,6 +150,10 @@ export const FormGroup = styled.div`
   grid-template-columns: 1fr;
   grid-auto-rows: max-content;
   margin-bottom: 4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    margin-bottom: 4.8rem;
+  }
 `;
 
 export const InputGroup = styled.div`
@@ -167,5 +171,20 @@ export const InputGroup = styled.div`
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+export const InvoiceInfoGroup = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+  margin-bottom: 6.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+
+    & > div:last-child {
+      grid-column: 1 / -1;
+    }
   }
 `;

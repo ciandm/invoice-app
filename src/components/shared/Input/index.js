@@ -5,7 +5,7 @@ import * as S from './styled';
 function Input({ label, id, value, name, handleInputChange, ...restProps }) {
   return (
     <S.Group>
-      <S.Label htmlFor={name}>{label}</S.Label>
+      <S.Label htmlFor={id}>{label}</S.Label>
       <S.Input
         id={id}
         name={name}

@@ -4,6 +4,10 @@ import { BodyOne } from '../../../theme/typography';
 export const Group = styled.div`
   display: flex;
   flex-direction: column;
+
+  &:hover > input {
+    border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
+  }
 `;
 
 export const Label = styled.label`

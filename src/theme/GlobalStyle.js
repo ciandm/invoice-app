@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
 
   *:focus {
     box-shadow: ${({ theme }) =>
-      `0 0 0 3px ${theme.constants.colors.heliotrope}`} ;
+      `0 0 0 1px ${theme.constants.colors.heliotrope}`} ;
     outline: none;
   }
 `;

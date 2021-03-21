@@ -3,6 +3,7 @@ import * as S from './styled';
 import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-left.svg';
 import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
+import Select from '../shared/Select';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
@@ -12,15 +13,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       description: '',
       terms: undefined,
     },
-    items: [
-      {
-        id: undefined,
-        name: '',
-        price: undefined,
-        quantity: undefined,
-        total: undefined,
-      },
-    ],
+    items: [],
     receiver: {
       city: '',
       country: '',
@@ -44,6 +37,16 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       ...prevState,
       [valueGroup]: {
         ...prevState[valueGroup],
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleSelectClick = (group, name, value) => {
+    setValues(prevState => ({
+      ...prevState,
+      [group]: {
+        ...prevState[group],
         [name]: value,
       },
     }));
@@ -156,6 +159,25 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             />
           </S.InputGroup>
         </S.FormGroup>
+        <S.InvoiceInfoGroup>
+          <Select
+            value={values.invoice.terms}
+            data-value-group="invoice"
+            label="Payment Terms"
+            options={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}
+            handleSelectClick={handleSelectClick}
+            valuesName="terms"
+            valuesGroup="invoice"
+          />
+          <Input
+            label="Project Description"
+            name="description"
+            data-value-group="invoice"
+            id="invoice-description"
+            value={values.invoice.description}
+            handleInputChange={handleInputChange}
+          />
+        </S.InvoiceInfoGroup>
       </S.Form>
     </S.Wrapper>
   );
