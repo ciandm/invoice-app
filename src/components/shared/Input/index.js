@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as S from './styled';
 
-function Input({ label, value, name, handleInputChange, ...restProps }) {
+function Input({ label, id, value, name, handleInputChange, ...restProps }) {
   return (
     <S.Group>
       <S.Label htmlFor={name}>{label}</S.Label>
       <S.Input
-        id={name}
+        id={id}
         name={name}
         onChange={e => handleInputChange(e.target)}
         value={value}
@@ -21,6 +21,7 @@ export default Input;
 
 Input.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
+  id: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,

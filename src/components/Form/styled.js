@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { H1, H4, BodyOne } from '../../theme/typography';
 
 const slideFormIn = keyframes`
@@ -11,12 +11,47 @@ const slideFormIn = keyframes`
   }
 `;
 
+const slideFormOut = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+`;
+
+const fadeOverlayIn = keyframes`
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+`;
+
+const fadeOverlayOut = keyframes`
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   position: absolute;
   top: 7.4rem;
+  pointer-events: ${({ shown }) => (shown ? 'auto' : 'none')};
   width: 100%;
   z-index: 1;
 
@@ -28,7 +63,17 @@ export const Wrapper = styled.div`
 `;
 
 export const Form = styled.form`
-  animation: ${slideFormIn} 0.25s ease-in-out;
+  animation-name: ${({ shown }) =>
+    shown
+      ? css`
+          ${slideFormIn}
+        `
+      : css`
+          ${slideFormOut}
+        `};
+  animation-fill-mode: both;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
   background-color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.mirage
@@ -43,6 +88,17 @@ export const Form = styled.form`
 `;
 
 export const Overlay = styled.div`
+  animation-name: ${({ shown }) =>
+    shown
+      ? css`
+          ${fadeOverlayIn}
+        `
+      : css`
+          ${fadeOverlayOut}
+        `};
+  animation-duration: 0.25s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   display: block;

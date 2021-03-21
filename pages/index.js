@@ -3,12 +3,15 @@ import InvoicesHome from '../src/screens/InvoicesHome';
 import InvoiceForm from '../src/screens/InvoiceForm';
 
 export default function Home() {
-  const [newInvoice, setNewInvoice] = useState(false);
-  const toggleNewInvoice = () => setNewInvoice(prevState => !prevState);
+  const [invoiceFormShown, setInvoiceFormShown] = useState(false);
+  const toggleInvoiceForm = () => setInvoiceFormShown(prevState => !prevState);
   return (
     <>
-      <InvoicesHome toggleNewInvoice={toggleNewInvoice} />
-      {newInvoice && <InvoiceForm toggleNewInvoice={toggleNewInvoice} />}
+      <InvoicesHome toggleInvoiceForm={toggleInvoiceForm} />
+      <InvoiceForm
+        toggleInvoiceForm={toggleInvoiceForm}
+        invoiceFormShown={invoiceFormShown}
+      />
     </>
   );
 }

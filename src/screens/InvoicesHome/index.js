@@ -7,7 +7,7 @@ import Invoices from '../../components/Invoices';
 import InvoicesHeader from '../../components/Invoices/InvoicesHeader/index';
 import InvoiceEmpty from '../../components/Invoices/InvoiceEmpty';
 
-function InvoicesHome({ toggleNewInvoice }) {
+function InvoicesHome({ toggleInvoiceForm }) {
   const [activeFilters, setActiveFilters] = useState({
     draft: false,
     paid: false,
@@ -24,7 +24,7 @@ function InvoicesHome({ toggleNewInvoice }) {
       <Nav />
       <Invoices>
         <InvoicesHeader
-          toggleNewInvoice={toggleNewInvoice}
+          toggleInvoiceForm={toggleInvoiceForm}
           activeFilters={activeFilters}
           handleCheckboxClick={handleCheckboxClick}
           invoiceCount={invoices.length || 0}

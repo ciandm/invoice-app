@@ -4,7 +4,7 @@ import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-l
 import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
 
-function Form({ toggleNewInvoice }) {
+function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
   const [values, setValues] = useState({
     invoice: {
@@ -50,11 +50,16 @@ function Form({ toggleNewInvoice }) {
   };
 
   return (
-    <S.Wrapper>
-      {windowSize > 768 && <S.Overlay onClick={() => toggleNewInvoice()} />}
-      <S.Form>
+    <S.Wrapper shown={invoiceFormShown}>
+      {windowSize > 768 && (
+        <S.Overlay
+          shown={invoiceFormShown}
+          onClick={() => toggleInvoiceForm()}
+        />
+      )}
+      <S.Form shown={invoiceFormShown}>
         {windowSize < 768 ? (
-          <S.Return onClick={() => toggleNewInvoice()}>
+          <S.Return onClick={() => toggleInvoiceForm()}>
             <ArrowLeft /> Go back
           </S.Return>
         ) : null}
@@ -67,6 +72,7 @@ function Form({ toggleNewInvoice }) {
             name="street"
             handleInputChange={handleInputChange}
             data-value-group="sender"
+            id="sender-street"
             value={values.sender.street}
           />
           <S.InputGroup>
@@ -75,6 +81,7 @@ function Form({ toggleNewInvoice }) {
               name="city"
               handleInputChange={handleInputChange}
               data-value-group="sender"
+              id="sender-city"
               value={values.sender.city}
             />
             <Input
@@ -82,6 +89,7 @@ function Form({ toggleNewInvoice }) {
               name="postCode"
               handleInputChange={handleInputChange}
               data-value-group="sender"
+              id="sender-postCode"
               value={values.sender.postCode}
             />
             <Input
@@ -89,6 +97,7 @@ function Form({ toggleNewInvoice }) {
               name="country"
               handleInputChange={handleInputChange}
               data-value-group="sender"
+              id="sender-country"
               value={values.sender.country}
             />
           </S.InputGroup>
@@ -101,6 +110,7 @@ function Form({ toggleNewInvoice }) {
             name="name"
             handleInputChange={handleInputChange}
             data-value-group="receiver"
+            id="receiver-name"
             value={values.receiver.name}
           />
           <Input
@@ -108,6 +118,7 @@ function Form({ toggleNewInvoice }) {
             name="email"
             handleInputChange={handleInputChange}
             data-value-group="receiver"
+            id="receiver-email"
             value={values.receiver.email}
           />
           <Input
@@ -115,6 +126,7 @@ function Form({ toggleNewInvoice }) {
             name="address"
             handleInputChange={handleInputChange}
             data-value-group="receiver"
+            id="receiver-address"
             value={values.receiver.street}
           />
           <S.InputGroup>
@@ -123,6 +135,7 @@ function Form({ toggleNewInvoice }) {
               name="city"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
+              id="receiver-city"
               value={values.receiver.city}
             />
             <Input
@@ -130,6 +143,7 @@ function Form({ toggleNewInvoice }) {
               name="postCode"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
+              id="receiver-postCode"
               value={values.receiver.postCode}
             />
             <Input
@@ -137,6 +151,7 @@ function Form({ toggleNewInvoice }) {
               name="country"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
+              id="receiver-country"
               value={values.receiver.country}
             />
           </S.InputGroup>
