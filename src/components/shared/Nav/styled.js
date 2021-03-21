@@ -8,6 +8,7 @@ export const Nav = styled.nav`
       : theme.constants.colors.ebonyClay};
   display: flex;
   justify-content: space-between;
+  z-index: 1000;
 
   @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
     border-radius: 0 2rem 2rem 0;
@@ -44,12 +45,21 @@ export const LogoContainer = styled.div`
     border-top-left-radius: 2rem;
     top: 50%;
   }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    padding: 3.2rem;
+  }
 `;
 
 export const Logo = styled.img`
   height: 2.6rem;
   width: 2.8rem;
   z-index: 1;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    height: auto;
+    width: 4rem;
+  }
 `;
 
 export const Profile = styled.div`
