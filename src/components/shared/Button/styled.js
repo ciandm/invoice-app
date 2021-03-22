@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { H4 } from '../../../theme/typography';
 
-export const Button = styled.button`
+export const Button = styled.button.attrs(({ type }) => ({
+  type,
+}))`
   ${H4};
   border-radius: 2.4rem;
   color: ${({ theme }) => theme.constants.colors.white};

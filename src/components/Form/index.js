@@ -4,6 +4,7 @@ import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-l
 import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
+import ItemList from './ItemList';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
@@ -187,6 +188,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             handleInputChange={handleInputChange}
           />
         </S.InvoiceInfoGroup>
+        <ItemList />
       </S.Form>
     </S.Wrapper>
   );

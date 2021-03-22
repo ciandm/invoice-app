@@ -13,6 +13,7 @@ export const Label = styled.span`
     theme.darkMode
       ? theme.constants.colors.baliHai
       : theme.constants.colors.shipCove};
+  cursor: default;
   padding-bottom: 1rem;
 `;
 
@@ -45,7 +46,8 @@ export const Select = styled.div`
     transition: transform 0.25s ease-in-out;
   }
 
-  ${SelectContainer}:hover & {
+  ${Label}:hover + &,
+  &:hover {
     border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
   }
 `;
