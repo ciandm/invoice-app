@@ -1,14 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Item from '../Item';
 import * as S from './styled';
 import Button from '../../shared/Button';
 
-function ItemList() {
+function ItemList({ items, handleItemInputChange }) {
   return (
     <S.Container>
       <S.Title>Item List</S.Title>
       <S.Items>
-        <Item />
+        {items.map(item => (
+          <Item
+            key={item.id}
+            {...item}
+            handleItemInputChange={handleItemInputChange}
+          />
+        ))}
       </S.Items>
       <Button variation="one">Add New Item</Button>
     </S.Container>
@@ -16,3 +23,13 @@ function ItemList() {
 }
 
 export default ItemList;
+
+ItemList.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      price: PropTypes.string,
+      quantity: PropTypes.string,
+    })
+  ).isRequired,
+};

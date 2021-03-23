@@ -5,6 +5,7 @@ import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
 import ItemList from './ItemList';
+import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
@@ -14,7 +15,20 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       description: '',
       terms: undefined,
     },
-    items: [],
+    items: [
+      {
+        id: generateInvoiceNumber(),
+        name: '',
+        price: '',
+        quantity: '',
+      },
+      {
+        id: generateInvoiceNumber(),
+        name: '',
+        price: '',
+        quantity: '',
+      },
+    ],
     receiver: {
       city: '',
       country: '',
@@ -40,6 +54,19 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
         ...prevState[valueGroup],
         [name]: value,
       },
+    }));
+  };
+
+  const handleItemInputChange = (e, id) => {
+    const indexInArray = values.items.findIndex(x => x.id === id);
+    const { name, value } = e;
+    const allItems = [...values.items];
+    const itemToUpdate = allItems[indexInArray];
+    itemToUpdate[name] = value;
+    allItems[indexInArray] = itemToUpdate;
+    setValues(prevState => ({
+      ...prevState,
+      [prevState.items]: [...allItems],
     }));
   };
 
@@ -188,7 +215,10 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             handleInputChange={handleInputChange}
           />
         </S.InvoiceInfoGroup>
-        <ItemList />
+        <ItemList
+          items={values.items}
+          handleItemInputChange={handleItemInputChange}
+        />
       </S.Form>
     </S.Wrapper>
   );
