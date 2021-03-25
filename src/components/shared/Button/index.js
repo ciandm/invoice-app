@@ -14,6 +14,44 @@ function Button({ variation, children, handleButtonClick, type }) {
       </S.ButtonOne>
     );
   }
+  if (variation === 'two') {
+    return (
+      <S.ButtonTwo type={type} onClick={() => handleButtonClick()}>
+        {children}
+      </S.ButtonTwo>
+    );
+  }
+  if (variation === 'three') {
+    return (
+      <S.ButtonThree type={type} onClick={() => handleButtonClick()}>
+        {children}
+      </S.ButtonThree>
+    );
+  }
+  if (variation === 'four') {
+    return (
+      <S.ButtonFour type={type} onClick={() => handleButtonClick()}>
+        {children}
+      </S.ButtonFour>
+    );
+  }
+  if (variation === 'five') {
+    return (
+      <S.ButtonFive type={type} onClick={() => handleButtonClick()}>
+        {children}
+      </S.ButtonFive>
+    );
+  }
+  if (variation === 'six') {
+    return (
+      <S.ButtonSix type={type} onClick={() => handleButtonClick()}>
+        <S.Icon>
+          <PlusIcon />
+        </S.Icon>{' '}
+        {children}
+      </S.ButtonSix>
+    );
+  }
 }
 
 export default Button;

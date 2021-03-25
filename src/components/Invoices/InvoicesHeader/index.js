@@ -65,7 +65,11 @@ function InvoicesHeader({
             </S.Filter>
           </S.Filters>
         </S.FilterWrapper>
-        <Button variation="one" handleButtonClick={toggleInvoiceForm}>
+        <Button
+          type="button"
+          variation="one"
+          handleButtonClick={toggleInvoiceForm}
+        >
           {windowSize > 768 ? 'New Invoice' : 'New'}
         </Button>
       </S.Content>

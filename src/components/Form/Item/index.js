@@ -11,7 +11,7 @@ function Item({ id, name, price, quantity, handleItemInputChange }) {
     <S.Item>
       <Input
         label="Item Name"
-        id="name"
+        id={`${id}-name`}
         data-value-group="items"
         value={name}
         name="name"
@@ -19,7 +19,7 @@ function Item({ id, name, price, quantity, handleItemInputChange }) {
       />
       <Input
         label="Qty."
-        id="quantity"
+        id={`${id}-quantity`}
         data-value-group="items"
         value={quantity}
         name="quantity"
@@ -27,7 +27,7 @@ function Item({ id, name, price, quantity, handleItemInputChange }) {
       />
       <Input
         label="Price"
-        id="price"
+        id={`${id}-price`}
         data-value-group="items"
         value={price}
         name="price"

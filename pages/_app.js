@@ -25,6 +25,9 @@ export default function App({ Component, pageProps }) {
     }));
   };
 
+  // prevents switch on load
+  if (!themeState.hasThemeLoaded) return null;
+
   return (
     <>
       <Head>

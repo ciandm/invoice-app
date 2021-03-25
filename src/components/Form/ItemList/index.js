@@ -4,7 +4,7 @@ import Item from '../Item';
 import * as S from './styled';
 import Button from '../../shared/Button';
 
-function ItemList({ items, handleItemInputChange }) {
+function ItemList({ items, handleItemInputChange, handleAddNewItem }) {
   return (
     <S.Container>
       <S.Title>Item List</S.Title>
@@ -17,7 +17,13 @@ function ItemList({ items, handleItemInputChange }) {
           />
         ))}
       </S.Items>
-      <Button variation="one">Add New Item</Button>
+      <Button
+        handleButtonClick={handleAddNewItem}
+        type="button"
+        variation="one"
+      >
+        Add New Item
+      </Button>
     </S.Container>
   );
 }

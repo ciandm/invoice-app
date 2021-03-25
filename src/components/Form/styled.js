@@ -62,9 +62,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Form = styled.form`
+export const FormContainer = styled.div`
   animation-name: ${({ shown }) =>
-    shown
+    shown === true
       ? css`
           ${slideFormIn}
         `
@@ -78,12 +78,43 @@ export const Form = styled.form`
     theme.darkMode
       ? theme.constants.colors.mirage
       : theme.constants.colors.white};
+  display: flex;
+  flex-direction: column;
   padding: 3.2rem 2.4rem;
+  padding-bottom: 6rem;
+  position: relative;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    max-height: 100vh;
+    padding: 5.6rem 3.2rem 5.6rem 5.6rem;
+    width: 61.6rem;
+  }
+`;
+
+export const Form = styled.form`
+  max-height: 100vh;
+  overflow-y: auto;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     border-radius: 0 2rem 2rem 0;
-    padding: 5.6rem;
-    width: 61.6rem;
+    padding-right: 1.6rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.ebonyClay
+        : theme.constants.colors.selago};
+    border-radius: 2px;
   }
 `;
 
@@ -110,7 +141,7 @@ export const Overlay = styled.div`
   z-index: -100;
 
   @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
-    width: calc(100vw - 10.4rem);
+    width: 100%;
   }
 `;
 
@@ -187,4 +218,42 @@ export const InvoiceInfoGroup = styled.div`
       grid-column: 1 / -1;
     }
   }
+`;
+
+export const Buttons = styled.div`
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.blackPearl
+      : theme.constants.colors.white};
+  box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.1);
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 2rem 2.4rem;
+  position: absolute;
+  width: 100%;
+  z-index: 500;
+
+  &::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.0001) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    content: '';
+    display: block;
+    height: 6.4rem;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    top: calc(0% - 6.4rem);
+    width: 100%;
+  }
+`;
+
+export const ButtonGroup = styled.div`
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: max-content max-content;
 `;

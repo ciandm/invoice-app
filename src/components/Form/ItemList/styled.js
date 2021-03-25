@@ -14,6 +14,7 @@ export const Title = styled.h3`
 `;
 
 export const Items = styled.div`
+  display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: min-content;
   gap: 4.8rem;

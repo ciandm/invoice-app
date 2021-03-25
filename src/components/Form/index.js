@@ -6,6 +6,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
 import ItemList from './ItemList';
 import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
+import Button from '../shared/Button';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
@@ -16,12 +17,6 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       terms: undefined,
     },
     items: [
-      {
-        id: generateInvoiceNumber(),
-        name: '',
-        price: '',
-        quantity: '',
-      },
       {
         id: generateInvoiceNumber(),
         name: '',
@@ -66,7 +61,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     allItems[indexInArray] = itemToUpdate;
     setValues(prevState => ({
       ...prevState,
-      [prevState.items]: [...allItems],
+      items: [...allItems],
     }));
   };
 
@@ -80,6 +75,21 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     }));
   };
 
+  const handleAddNewItem = () => {
+    setValues(prevValues => ({
+      ...prevValues,
+      items: [
+        ...prevValues.items,
+        {
+          id: generateInvoiceNumber(),
+          name: '',
+          price: '',
+          quantity: '',
+        },
+      ],
+    }));
+  };
+
   return (
     <S.Wrapper shown={invoiceFormShown}>
       {windowSize > 768 && (
@@ -88,138 +98,159 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           onClick={() => toggleInvoiceForm()}
         />
       )}
-      <S.Form shown={invoiceFormShown}>
+      <S.FormContainer shown={invoiceFormShown}>
         {windowSize < 768 ? (
           <S.Return onClick={() => toggleInvoiceForm()}>
             <ArrowLeft /> Go back
           </S.Return>
         ) : null}
         <S.Title>New invoices</S.Title>
-        {/* Sender details */}
-        <S.FormGroup>
-          <S.FormGroupTitle>Bill From</S.FormGroupTitle>
-          <Input
-            label="Street Address"
-            name="street"
-            handleInputChange={handleInputChange}
-            data-value-group="sender"
-            id="sender-street"
-            value={values.sender.street}
-          />
-          <S.InputGroup>
+        <S.Form>
+          {/* Sender details */}
+          <S.FormGroup>
+            <S.FormGroupTitle>Bill From</S.FormGroupTitle>
             <Input
-              label="City"
-              name="city"
+              label="Street Address"
+              name="street"
               handleInputChange={handleInputChange}
               data-value-group="sender"
-              id="sender-city"
-              value={values.sender.city}
+              id="sender-street"
+              value={values.sender.street}
             />
+            <S.InputGroup>
+              <Input
+                label="City"
+                name="city"
+                handleInputChange={handleInputChange}
+                data-value-group="sender"
+                id="sender-city"
+                value={values.sender.city}
+              />
+              <Input
+                label="Post Code"
+                name="postCode"
+                handleInputChange={handleInputChange}
+                data-value-group="sender"
+                id="sender-postCode"
+                value={values.sender.postCode}
+              />
+              <Input
+                label="Country"
+                name="country"
+                handleInputChange={handleInputChange}
+                data-value-group="sender"
+                id="sender-country"
+                value={values.sender.country}
+              />
+            </S.InputGroup>
+          </S.FormGroup>
+          {/* Receiver details */}
+          <S.FormGroup>
+            <S.FormGroupTitle>Bill To</S.FormGroupTitle>
             <Input
-              label="Post Code"
-              name="postCode"
-              handleInputChange={handleInputChange}
-              data-value-group="sender"
-              id="sender-postCode"
-              value={values.sender.postCode}
-            />
-            <Input
-              label="Country"
-              name="country"
-              handleInputChange={handleInputChange}
-              data-value-group="sender"
-              id="sender-country"
-              value={values.sender.country}
-            />
-          </S.InputGroup>
-        </S.FormGroup>
-        {/* Receiver details */}
-        <S.FormGroup>
-          <S.FormGroupTitle>Bill To</S.FormGroupTitle>
-          <Input
-            label="Client's Name"
-            name="name"
-            handleInputChange={handleInputChange}
-            data-value-group="receiver"
-            id="receiver-name"
-            value={values.receiver.name}
-          />
-          <Input
-            label="Client's Email"
-            name="email"
-            handleInputChange={handleInputChange}
-            data-value-group="receiver"
-            id="receiver-email"
-            value={values.receiver.email}
-          />
-          <Input
-            label="Street Address"
-            name="address"
-            handleInputChange={handleInputChange}
-            data-value-group="receiver"
-            id="receiver-address"
-            value={values.receiver.street}
-          />
-          <S.InputGroup>
-            <Input
-              label="City"
-              name="city"
+              label="Client's Name"
+              name="name"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
-              id="receiver-city"
-              value={values.receiver.city}
+              id="receiver-name"
+              value={values.receiver.name}
             />
             <Input
-              label="Post Code"
-              name="postCode"
+              label="Client's Email"
+              name="email"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
-              id="receiver-postCode"
-              value={values.receiver.postCode}
+              id="receiver-email"
+              value={values.receiver.email}
             />
             <Input
-              label="Country"
-              name="country"
+              label="Street Address"
+              name="address"
               handleInputChange={handleInputChange}
               data-value-group="receiver"
-              id="receiver-country"
-              value={values.receiver.country}
+              id="receiver-address"
+              value={values.receiver.street}
             />
-          </S.InputGroup>
-        </S.FormGroup>
-        <S.InvoiceInfoGroup>
-          <Input
-            label="Invoice Date"
-            name="date"
-            data-value-group="invoice"
-            id="invoice-date"
-            value={values.invoice.date}
-            handleInputChange={handleInputChange}
-            type="date"
+            <S.InputGroup>
+              <Input
+                label="City"
+                name="city"
+                handleInputChange={handleInputChange}
+                data-value-group="receiver"
+                id="receiver-city"
+                value={values.receiver.city}
+              />
+              <Input
+                label="Post Code"
+                name="postCode"
+                handleInputChange={handleInputChange}
+                data-value-group="receiver"
+                id="receiver-postCode"
+                value={values.receiver.postCode}
+              />
+              <Input
+                label="Country"
+                name="country"
+                handleInputChange={handleInputChange}
+                data-value-group="receiver"
+                id="receiver-country"
+                value={values.receiver.country}
+              />
+            </S.InputGroup>
+          </S.FormGroup>
+          <S.InvoiceInfoGroup>
+            <Input
+              label="Invoice Date"
+              name="date"
+              data-value-group="invoice"
+              id="invoice-date"
+              value={values.invoice.date}
+              handleInputChange={handleInputChange}
+              type="date"
+            />
+            <Select
+              value={values.invoice.terms}
+              data-value-group="invoice"
+              label="Payment Terms"
+              options={[
+                'Net 1 Day',
+                'Net 7 Days',
+                'Net 14 Days',
+                'Net 30 Days',
+              ]}
+              handleSelectClick={handleSelectClick}
+              valuesName="terms"
+              valuesGroup="invoice"
+            />
+            <Input
+              label="Project Description"
+              name="description"
+              data-value-group="invoice"
+              id="invoice-description"
+              value={values.invoice.description}
+              handleInputChange={handleInputChange}
+            />
+          </S.InvoiceInfoGroup>
+          <ItemList
+            items={values.items}
+            handleItemInputChange={handleItemInputChange}
+            handleAddNewItem={handleAddNewItem}
           />
-          <Select
-            value={values.invoice.terms}
-            data-value-group="invoice"
-            label="Payment Terms"
-            options={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}
-            handleSelectClick={handleSelectClick}
-            valuesName="terms"
-            valuesGroup="invoice"
-          />
-          <Input
-            label="Project Description"
-            name="description"
-            data-value-group="invoice"
-            id="invoice-description"
-            value={values.invoice.description}
-            handleInputChange={handleInputChange}
-          />
-        </S.InvoiceInfoGroup>
-        <ItemList
-          items={values.items}
-          handleItemInputChange={handleItemInputChange}
-        />
-      </S.Form>
+        </S.Form>
+        <S.Buttons>
+          <Button variation="three" type="button">
+            Discard
+          </Button>
+          <S.ButtonGroup>
+            <Button variation="four" type="button">
+              Save as Draft
+            </Button>
+            <Button variation="two" type="button">
+              Save & Send
+            </Button>
+          </S.ButtonGroup>
+        </S.Buttons>
+      </S.FormContainer>
     </S.Wrapper>
   );
 }

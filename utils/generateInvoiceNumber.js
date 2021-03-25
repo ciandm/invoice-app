@@ -1,7 +1,7 @@
 function generateRandomLetters() {
   const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let randomString = '';
-  for (let i = 2; i > 0; i--) {
+  for (let i = 2; i > 0; i -= 1) {
     const randomPos = Math.floor(Math.random() * charSet.length);
     randomString += charSet.substring(randomPos, randomPos + 1);
   }
