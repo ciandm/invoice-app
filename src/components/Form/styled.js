@@ -81,22 +81,43 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 3.2rem 2.4rem;
-  padding-bottom: 6rem;
+  padding-bottom: 18rem;
   position: relative;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
-    max-height: 100vh;
-    padding: 5.6rem 3.2rem 5.6rem 5.6rem;
+    border-radius: 0 2rem 2rem 0;
+    height: 100vh;
+    padding: 5.6rem 3.2rem 8.7rem 5.6rem;
     width: 61.6rem;
+  }
+
+  &::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.0001) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    content: '';
+    display: block;
+    height: 6.4rem;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    top: calc(100% - (6.4rem + 8.7rem));
+    width: 100%;
+
+    @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+      height: 20rem;
+      top: calc(100% - 25.6rem);
+    }
   }
 `;
 
 export const Form = styled.form`
-  max-height: 100vh;
-  overflow-y: auto;
-
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     border-radius: 0 2rem 2rem 0;
+    height: 100vh;
+    overflow-y: auto;
     padding-right: 1.6rem;
   }
 
@@ -106,6 +127,7 @@ export const Form = styled.form`
 
   &::-webkit-scrollbar-track {
     background: none;
+    margin-bottom: 5.6rem;
   }
 
   /* Handle */
@@ -235,20 +257,8 @@ export const Buttons = styled.div`
   width: 100%;
   z-index: 500;
 
-  &::before {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.0001) 0%,
-      rgba(0, 0, 0, 0.2) 100%
-    );
-    content: '';
-    display: block;
-    height: 6.4rem;
-    left: 0;
-    position: absolute;
-    pointer-events: none;
-    top: calc(0% - 6.4rem);
-    width: 100%;
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    border-radius: 0 2rem 2rem 0;
   }
 `;
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import * as S from './styled';
 import Nav from '../../components/shared/Nav';
 import InvoiceList from '../../components/Invoices/InvoiceList';
@@ -7,7 +8,7 @@ import Invoices from '../../components/Invoices';
 import InvoicesHeader from '../../components/Invoices/InvoicesHeader/index';
 import InvoiceEmpty from '../../components/Invoices/InvoiceEmpty';
 
-function InvoicesHome({ toggleInvoiceForm }) {
+function InvoicesHome({ toggleInvoiceForm, invoiceFormShown }) {
   const [activeFilters, setActiveFilters] = useState({
     draft: false,
     paid: false,
@@ -31,7 +32,11 @@ function InvoicesHome({ toggleInvoiceForm }) {
         />
         {invoices.length > 0 || !invoices ? (
           <>
-            <InvoiceList activeFilters={activeFilters} invoices={invoices} />
+            <InvoiceList
+              activeFilters={activeFilters}
+              invoices={invoices}
+              invoiceFormShown={invoiceFormShown}
+            />
           </>
         ) : (
           <InvoiceEmpty />
@@ -42,3 +47,8 @@ function InvoicesHome({ toggleInvoiceForm }) {
 }
 
 export default InvoicesHome;
+
+InvoicesHome.propTypes = {
+  invoiceFormShown: PropTypes.bool,
+  toggleInvoiceForm: PropTypes.func.isRequired,
+};

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    margin-bottom: 5.6rem;
+  }
 `;
 
 export const Title = styled.h3`

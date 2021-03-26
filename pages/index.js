@@ -7,7 +7,10 @@ export default function Home() {
   const toggleInvoiceForm = () => setInvoiceFormShown(prevState => !prevState);
   return (
     <>
-      <InvoicesHome toggleInvoiceForm={toggleInvoiceForm} />
+      <InvoicesHome
+        toggleInvoiceForm={toggleInvoiceForm}
+        invoiceFormShown={invoiceFormShown}
+      />
       <InvoiceForm
         toggleInvoiceForm={toggleInvoiceForm}
         invoiceFormShown={invoiceFormShown}
