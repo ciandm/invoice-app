@@ -10,7 +10,7 @@ import Button from '../shared/Button';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
-  const [values, setValues] = useState({
+  const initialFormValues = {
     invoice: {
       date: undefined,
       description: '',
@@ -38,7 +38,8 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       postCode: '',
       street: '',
     },
-  });
+  };
+  const [values, setValues] = useState(initialFormValues);
 
   const handleInputChange = e => {
     const valueGroup = e.getAttribute('data-value-group');
@@ -96,6 +97,11 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       ...prevValues,
       items: filteredItems,
     }));
+  };
+
+  const handleDiscardInvoice = () => {
+    setValues(initialFormValues);
+    toggleInvoiceForm();
   };
 
   return (
@@ -248,7 +254,11 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           />
         </S.Form>
         <S.Buttons>
-          <Button variation="three" type="button">
+          <Button
+            variation="three"
+            type="button"
+            handleButtonClick={handleDiscardInvoice}
+          >
             Discard
           </Button>
           <S.ButtonGroup>
