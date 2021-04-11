@@ -18,6 +18,11 @@ export const Remove = styled.button.attrs(({ type }) => ({
   display: flex;
   margin-top: 2.4rem;
   padding: 1.2rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `;
 
 export const TotalContainer = styled.div`

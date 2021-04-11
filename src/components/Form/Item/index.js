@@ -1,12 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as S from './styled';
 import Input from '../../shared/Input';
 import { ReactComponent as RemoveIcon } from '../../../../public/images/icon-delete.svg';
 
-function Item({ id, name, price, quantity, handleItemInputChange }) {
+function Item({
+  id,
+  name,
+  price,
+  quantity,
+  handleItemInputChange,
+  handleRemoveItem,
+  removeItemDisabled,
+}) {
   const handleInput = e => {
     handleItemInputChange(e, id);
   };
+
+  console.log(removeItemDisabled);
   return (
     <S.Item>
       <Input
@@ -37,7 +48,11 @@ function Item({ id, name, price, quantity, handleItemInputChange }) {
         <S.Label>Total</S.Label>
         <S.Total>400.00</S.Total>
       </S.TotalContainer>
-      <S.Remove type="button">
+      <S.Remove
+        type="button"
+        disabled={removeItemDisabled}
+        onClick={() => handleRemoveItem(id)}
+      >
         <RemoveIcon />
       </S.Remove>
     </S.Item>
@@ -45,3 +60,13 @@ function Item({ id, name, price, quantity, handleItemInputChange }) {
 }
 
 export default Item;
+
+Item.propTypes = {
+  handleItemInputChange: PropTypes.func.isRequired,
+  handleRemoveItem: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  quantity: PropTypes.number,
+  removeItemDisabled: PropTypes.bool.isRequired,
+};

@@ -4,7 +4,13 @@ import Item from '../Item';
 import * as S from './styled';
 import Button from '../../shared/Button';
 
-function ItemList({ items, handleItemInputChange, handleAddNewItem }) {
+function ItemList({
+  items,
+  handleItemInputChange,
+  handleRemoveItem,
+  handleAddNewItem,
+  removeItemDisabled,
+}) {
   return (
     <S.Container>
       <S.Title>Item List</S.Title>
@@ -14,6 +20,8 @@ function ItemList({ items, handleItemInputChange, handleAddNewItem }) {
             key={item.id}
             {...item}
             handleItemInputChange={handleItemInputChange}
+            handleRemoveItem={handleRemoveItem}
+            removeItemDisabled={removeItemDisabled}
           />
         ))}
       </S.Items>
@@ -31,6 +39,9 @@ function ItemList({ items, handleItemInputChange, handleAddNewItem }) {
 export default ItemList;
 
 ItemList.propTypes = {
+  handleAddNewItem: PropTypes.func.isRequired,
+  handleItemInputChange: PropTypes.func.isRequired,
+  handleRemoveItem: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -38,4 +49,5 @@ ItemList.propTypes = {
       quantity: PropTypes.string,
     })
   ).isRequired,
+  removeItemDisabled: PropTypes.bool.isRequired,
 };

@@ -90,6 +90,14 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     }));
   };
 
+  const handleRemoveItem = id => {
+    const filteredItems = values.items.filter(i => i.id !== id);
+    setValues(prevValues => ({
+      ...prevValues,
+      items: filteredItems,
+    }));
+  };
+
   return (
     <S.Wrapper shown={invoiceFormShown}>
       {windowSize > 768 && (
@@ -235,6 +243,8 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             items={values.items}
             handleItemInputChange={handleItemInputChange}
             handleAddNewItem={handleAddNewItem}
+            handleRemoveItem={handleRemoveItem}
+            removeItemDisabled={values.items.length === 1}
           />
         </S.Form>
         <S.Buttons>
