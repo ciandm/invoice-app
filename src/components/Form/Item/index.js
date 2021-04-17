@@ -16,8 +16,6 @@ function Item({
   const handleInput = e => {
     handleItemInputChange(e, id);
   };
-
-  console.log(removeItemDisabled);
   return (
     <S.Item>
       <Input
@@ -46,7 +44,7 @@ function Item({
       />
       <S.TotalContainer>
         <S.Label>Total</S.Label>
-        <S.Total>400.00</S.Total>
+        <S.Total>{(price * quantity).toFixed(2)}</S.Total>
       </S.TotalContainer>
       <S.Remove
         type="button"
@@ -66,7 +64,7 @@ Item.propTypes = {
   handleRemoveItem: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
+  price: PropTypes.string,
+  quantity: PropTypes.string,
   removeItemDisabled: PropTypes.bool.isRequired,
 };

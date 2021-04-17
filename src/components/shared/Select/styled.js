@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ReactSelect from 'react-select';
 import { BodyOne } from '../../../theme/typography';
 
 export const SelectContainer = styled.div`
@@ -17,81 +18,57 @@ export const Label = styled.span`
   padding-bottom: 1rem;
 `;
 
-export const Select = styled.div`
-  ${BodyOne};
-  align-items: center;
-  background-color: ${({ theme }) =>
-    theme.darkMode
-      ? theme.constants.colors.blackPearl
-      : theme.constants.colors.white};
-  border: 1px solid
-    ${({ theme }) =>
+export const Select = styled(ReactSelect)`
+  & .Select__control {
+    ${BodyOne};
+    align-items: center;
+    background-color: ${({ theme }) =>
       theme.darkMode
-        ? theme.constants.colors.ebonyClay
-        : theme.constants.colors.selago};
-  border-radius: 4px;
-  color: ${({ theme }) =>
-    theme.darkMode
-      ? theme.constants.colors.white
-      : theme.constants.colors.chartreuseYellow};
-  cursor: pointer;
-  display: flex;
-  font-weight: 700;
-  justify-content: space-between;
-  padding: 1.6rem 1.6rem 1.6rem 2rem;
-  width: 100%;
-
-  & svg {
-    transform: ${({ open }) => (open ? 'rotate(180deg)' : null)};
-    transition: transform 0.25s ease-in-out;
-  }
-
-  ${Label}:hover + &,
-  &:hover {
-    border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
-  }
-`;
-
-export const Options = styled.ul`
-  ${BodyOne};
-  background-color: ${({ theme }) =>
-    theme.darkMode
-      ? theme.constants.colors.ebonyClay
-      : theme.constants.colors.white};
-  box-shadow: ${({ theme }) =>
-    theme.darkMode
-      ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
-      : '0px 10px 20px rgba(72, 84, 159, 0.25)'};
-  border-radius: 0.8rem;
-  cursor: pointer;
-  display: ${({ open }) => (open ? 'block' : 'none')};
-  list-style: none;
-  position: absolute;
-  top: calc(100% + 0.8rem);
-  width: 100%;
-`;
-
-export const Option = styled.li`
-  color: ${({ theme }) =>
-    theme.darkMode
-      ? theme.constants.colors.white
-      : theme.constants.colors.chartreuseYellow};
-  font-family: inherit;
-  font-weight: 700;
-  padding: 1.6rem 2.4rem;
-
-  &:hover,
-  &:focus {
-    border: none;
-    box-shadow: none;
-    color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
-  }
-
-  & + & {
-    border-top: 1px solid
+        ? theme.constants.colors.blackPearl
+        : theme.constants.colors.white};
+    border: 1px solid
       ${({ theme }) =>
         theme.darkMode
-          ? theme.constants.colors.blackPearl
+          ? theme.constants.colors.ebonyClay
           : theme.constants.colors.selago};
+    border-radius: 4px;
+    color: ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.white
+        : theme.constants.colors.chartreuseYellow};
+    cursor: pointer;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+    /* padding: 1.6rem 1.6rem 1.6rem 2rem; */
+    width: 100%;
+
+    &:hover {
+      border-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
+    }
+  }
+
+  & .Select__menu {
+    ${BodyOne};
+    background-color: ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.ebonyClay
+        : theme.constants.colors.white};
+    box-shadow: ${({ theme }) =>
+      theme.darkMode
+        ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
+        : '0px 10px 20px rgba(72, 84, 159, 0.25)'};
+    border-radius: 0.8rem;
+    color: red;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  & .Select__menu-list {
+    color: red;
+  }
+
+  & .Select__option {
+    color: red;
   }
 `;

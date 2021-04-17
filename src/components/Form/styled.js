@@ -105,6 +105,7 @@ export const FormContainer = styled.div`
     pointer-events: none;
     top: calc(100% - (6.4rem + 8.7rem));
     width: 100%;
+    z-index: 10;
 
     @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
       height: 20rem;

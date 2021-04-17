@@ -16,7 +16,10 @@ function Button({ variation, children, handleButtonClick, type }) {
   }
   if (variation === 'two') {
     return (
-      <S.ButtonTwo type={type} onClick={() => handleButtonClick()}>
+      <S.ButtonTwo
+        type={type}
+        onClick={type === 'button' ? () => handleButtonClick() : null}
+      >
         {children}
       </S.ButtonTwo>
     );
@@ -57,7 +60,7 @@ function Button({ variation, children, handleButtonClick, type }) {
 export default Button;
 
 Button.propTypes = {
-  handleButtonClick: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'submit']).isRequired,
   variation: PropTypes.oneOf(['one', 'two', 'three', 'four', 'five', 'six'])
     .isRequired,

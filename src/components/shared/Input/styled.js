@@ -29,8 +29,10 @@ export const Input = styled.input.attrs(({ type }) => ({
       ? theme.constants.colors.blackPearl
       : theme.constants.colors.white};
   border: 1px solid
-    ${({ theme }) =>
-      theme.darkMode
+    ${({ theme, error }) =>
+      error
+        ? theme.constants.colors.burntSienna
+        : theme.darkMode
         ? theme.constants.colors.ebonyClay
         : theme.constants.colors.selago};
   border-radius: 4px;
