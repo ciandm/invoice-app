@@ -13,6 +13,7 @@ function Item({
   handleRemoveItem,
   removeItemDisabled,
   register,
+  index,
 }) {
   console.log(id);
   const handleInput = e => {
@@ -22,19 +23,19 @@ function Item({
     <S.Item>
       <Input
         label="Item Name"
-        {...register(`items[${id}]name`, {
+        {...register(`items[${index}].name`, {
           required: true,
         })}
       />
       <Input
         label="Qty."
-        {...register(`items[${id}]quantity`, {
+        {...register(`items[${index}].quantity`, {
           required: true,
         })}
       />
       <Input
         label="Price"
-        {...register(`items[${id}]price`, {
+        {...register(`items[${index}].price`, {
           required: true,
         })}
       />

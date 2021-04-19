@@ -18,9 +18,10 @@ function ItemList({
       <S.Title>Item List</S.Title>
       <S.Items>
         {items &&
-          items.map(item => (
+          items.map((item, index) => (
             <Item
               key={item.id}
+              index={index}
               {...item}
               handleItemInputChange={handleItemInputChange}
               handleRemoveItem={handleRemoveItem}
