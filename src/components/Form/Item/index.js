@@ -12,7 +12,9 @@ function Item({
   handleItemInputChange,
   handleRemoveItem,
   removeItemDisabled,
+  register,
 }) {
+  console.log(id);
   const handleInput = e => {
     handleItemInputChange(e, id);
   };
@@ -20,27 +22,21 @@ function Item({
     <S.Item>
       <Input
         label="Item Name"
-        id={`${id}-name`}
-        data-value-group="items"
-        value={name}
-        name="name"
-        handleInputChange={handleInput}
+        {...register(`items[${id}]name`, {
+          required: true,
+        })}
       />
       <Input
         label="Qty."
-        id={`${id}-quantity`}
-        data-value-group="items"
-        value={quantity}
-        name="quantity"
-        handleInputChange={handleInput}
+        {...register(`items[${id}]quantity`, {
+          required: true,
+        })}
       />
       <Input
         label="Price"
-        id={`${id}-price`}
-        data-value-group="items"
-        value={price}
-        name="price"
-        handleInputChange={handleInput}
+        {...register(`items[${id}]price`, {
+          required: true,
+        })}
       />
       <S.TotalContainer>
         <S.Label>Total</S.Label>

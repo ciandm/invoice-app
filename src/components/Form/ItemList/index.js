@@ -10,20 +10,24 @@ function ItemList({
   handleRemoveItem,
   handleAddNewItem,
   removeItemDisabled,
+  register,
 }) {
+  console.log(items);
   return (
     <S.Container>
       <S.Title>Item List</S.Title>
       <S.Items>
-        {items.map(item => (
-          <Item
-            key={item.id}
-            {...item}
-            handleItemInputChange={handleItemInputChange}
-            handleRemoveItem={handleRemoveItem}
-            removeItemDisabled={removeItemDisabled}
-          />
-        ))}
+        {items &&
+          items.map(item => (
+            <Item
+              key={item.id}
+              {...item}
+              handleItemInputChange={handleItemInputChange}
+              handleRemoveItem={handleRemoveItem}
+              removeItemDisabled={removeItemDisabled}
+              register={register}
+            />
+          ))}
       </S.Items>
       <Button
         handleButtonClick={handleAddNewItem}

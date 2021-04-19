@@ -58,20 +58,37 @@ function Select({
         ? '0px 10px 20px rgba(0, 0, 0, 0.25)'
         : '0px 10px 20px rgba(72, 84, 159, 0.25)',
       width: '100%;',
+      zIndex: '100',
     }),
     option: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'transparent',
+      borderTop: darkMode
+        ? `1px solid ${state.selectProps.colorBlackPearl}`
+        : `1px solid ${state.selectProps.colorSelago}`,
+      color: state.isSelected
+        ? state.selectProps.colorCornflowerBlue
+        : darkMode
+        ? state.selectProps.colorWhite
+        : state.selectProps.colorChartreuseYellow,
+      cursor: 'pointer',
+      fontWeight: '700',
+      padding: '1.6rem 2.4rem',
+      // eslint-disable-next-line
+      '&:hover' : {
+        backgroundColor: 'transparent',
+        color: state.selectProps.colorCornflowerBlue,
+      },
+      // eslint-disable-next-line
+      '&:first-child': {
+        borderTop: 'none',
+      },
+    }),
+    singleValue: (provided, state) => ({
       ...provided,
       color: darkMode
         ? state.selectProps.colorWhite
         : state.selectProps.colorChartreuseYellow,
-      fontWeight: '700',
-      padding: '1.6rem 2.4rem',
-      // eslint-disable-next-line
-      '& + &': {
-        borderTop: darkMode
-          ? `1px solid ${state.selectProps.colorEbonyClay}`
-          : `1px solid ${state.selectProps.selago}`,
-      },
     }),
   };
 

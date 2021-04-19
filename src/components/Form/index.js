@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import * as S from './styled';
 import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-left.svg';
 import Input from '../shared/Input';
@@ -45,10 +45,10 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     handleSubmit,
     reset,
     control,
+    watch,
+    getValues,
     formState: { errors },
-  } = useForm();
-  const [values, setValues] = useState(initialFormValues);
-
+  } = useForm(initialFormValues);
   const initialFormErrors = {
     invoice: {
       date: false,
@@ -77,66 +77,81 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       street: false,
     },
   };
+  const { append, fields } = useFieldArray({
+    control,
+    name: 'items',
+  });
+  const values = getValues();
+  const itemsOnInvoice = watch('items');
+  console.log(itemsOnInvoice, values);
+  const appendNewItem = () => {
+    append({
+      id: generateInvoiceNumber(),
+      name: '',
+      price: '',
+      quantity: '',
+    });
+  };
 
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
-  const handleInputChange = e => {
-    const valueGroup = e.getAttribute('data-value-group');
-    const { name, value } = e;
-    setValues(prevState => ({
-      ...prevState,
-      [valueGroup]: {
-        ...prevState[valueGroup],
-        [name]: value,
-      },
-    }));
-  };
+  // const handleInputChange = e => {
+  //   const valueGroup = e.getAttribute('data-value-group');
+  //   const { name, value } = e;
+  //   setValues(prevState => ({
+  //     ...prevState,
+  //     [valueGroup]: {
+  //       ...prevState[valueGroup],
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
 
-  const handleItemInputChange = (e, id) => {
-    const indexInArray = values.items.findIndex(x => x.id === id);
-    const { name, value } = e;
-    const allItems = [...values.items];
-    const itemToUpdate = allItems[indexInArray];
-    itemToUpdate[name] = value;
-    allItems[indexInArray] = itemToUpdate;
-    setValues(prevState => ({
-      ...prevState,
-      items: [...allItems],
-    }));
-  };
+  // const handleItemInputChange = (e, id) => {
+  //   const indexInArray = values.items.findIndex(x => x.id === id);
+  //   const { name, value } = e;
+  //   const allItems = [...values.items];
+  //   const itemToUpdate = allItems[indexInArray];
+  //   itemToUpdate[name] = value;
+  //   allItems[indexInArray] = itemToUpdate;
+  //   setValues(prevState => ({
+  //     ...prevState,
+  //     items: [...allItems],
+  //   }));
+  // };
 
-  const handleSelectClick = (group, name, value) => {
-    setValues(prevState => ({
-      ...prevState,
-      [group]: {
-        ...prevState[group],
-        [name]: value,
-      },
-    }));
-  };
+  // const handleSelectClick = (group, name, value) => {
+  //   setValues(prevState => ({
+  //     ...prevState,
+  //     [group]: {
+  //       ...prevState[group],
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
 
-  const handleAddNewItem = () => {
-    setValues(prevValues => ({
-      ...prevValues,
-      items: [
-        ...prevValues.items,
-        {
-          id: generateInvoiceNumber(),
-          name: '',
-          price: '',
-          quantity: '',
-        },
-      ],
-    }));
-  };
+  // const handleAddNewItem = () => {
+  //   setValues(prevValues => ({
+  //     ...prevValues,
+  //     items: [
+  //       ...prevValues.items,
+  //       {
+  //         id: generateInvoiceNumber(),
+  //         name: '',
+  //         price: '',
+  //         quantity: '',
+  //       },
+  //     ],
+  //   }));
+  // };
 
-  const handleRemoveItem = id => {
-    const filteredItems = values.items.filter(i => i.id !== id);
-    setValues(prevValues => ({
-      ...prevValues,
-      items: filteredItems,
-    }));
-  };
+  // const handleRemoveItem = id => {
+  //   const filteredItems = values.items.filter(i => i.id !== id);
+  //   setValues(prevValues => ({
+  //     ...prevValues,
+  //     items: filteredItems,
+  //   }));
+  // };
 
   const handleDiscardInvoice = () => {
     reset();
@@ -168,30 +183,30 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             <S.FormGroupTitle>Bill From</S.FormGroupTitle>
             <Input
               label="Street Address"
-              error={errors.sender_street}
-              {...register('sender_street', {
+              {...register('sender.street', {
                 required: true,
               })}
+              // error={errors.sender.street ? errors.sender.street : null}
             />
             <S.InputGroup>
               <Input
                 label="City"
-                error={errors.sender_city}
-                {...register('sender_city', {
+                error={errors['sender.city']}
+                {...register('sender.city', {
                   required: true,
                 })}
               />
               <Input
                 label="Post Code"
-                error={errors.sender_postCode}
-                {...register('sender_postCode', {
+                error={errors['sender.postCode']}
+                {...register('sender.postCode', {
                   required: true,
                 })}
               />
               <Input
                 label="Country"
-                error={errors.sender_country}
-                {...register('sender_country', {
+                error={errors['sender.country']}
+                {...register('sender.country', {
                   required: true,
                 })}
               />
@@ -201,44 +216,44 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             <S.FormGroupTitle>Bill To</S.FormGroupTitle>
             <Input
               label="Client's Name"
-              error={errors.receiver_country}
-              {...register('receiver_country', {
+              error={errors['receiver.country']}
+              {...register('receiver.country', {
                 required: true,
               })}
             />
             <Input
               label="Client's Email"
-              error={errors.receiver_email}
-              {...register('receiver_email', {
+              error={errors['receiver.email']}
+              {...register('receiver.email', {
                 required: true,
               })}
             />
             <Input
               label="Street Address"
-              error={errors.receiver_address}
-              {...register('receiver_address', {
+              error={errors['receiver.address']}
+              {...register('receiver.address', {
                 required: true,
               })}
             />
             <S.InputGroup>
               <Input
                 label="City"
-                error={errors.receiver_city}
-                {...register('receiver_city', {
+                error={errors['receiver.city']}
+                {...register('receiver.city', {
                   required: true,
                 })}
               />
               <Input
                 label="Post Code"
-                error={errors.receiver_postCode}
-                {...register('receiver_postCode', {
+                error={errors['receiver.postCode']}
+                {...register('receiver.postCode', {
                   required: true,
                 })}
               />
               <Input
                 label="Country"
-                error={errors.receiver_country}
-                {...register('receiver_country', {
+                error={errors['receiver.country']}
+                {...register('receiver.country', {
                   required: true,
                 })}
               />
@@ -247,19 +262,17 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           <S.InvoiceInfoGroup>
             <Input
               label="Invoice Date"
-              error={errors.invoice_date}
-              {...register('invoice_date', {
+              error={errors['invoice.date']}
+              {...register('invoice.date', {
                 required: true,
               })}
             />
             <Controller
-              name="invoice_terms"
-              render={({
-                field: { onChange, value, ref },
-                fieldState: { error },
-                formState,
-              }) => (
+              name="invoice.terms"
+              control={control}
+              render={({ field }) => (
                 <Select
+                  {...field}
                   label="Payment Terms"
                   options={[
                     { label: 'Net 1 Day', value: '1' },
@@ -267,26 +280,24 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
                     { label: 'Net 14 Days', value: '14' },
                     { label: 'Net 30 Days', value: '30' },
                   ]}
-                  handleSelectClick={onChange}
                 />
               )}
-              control={control}
             />
             <Input
               label="Project Description"
-              error={errors.invoice_description}
-              {...register('invoice_description', {
+              error={errors['invoice.description']}
+              {...register('invoice.description', {
                 required: true,
               })}
             />
           </S.InvoiceInfoGroup>
-          {/* <ItemList
-            items={values.items}
-            handleItemInputChange={handleItemInputChange}
-            handleAddNewItem={handleAddNewItem}
-            handleRemoveItem={handleRemoveItem}
-            removeItemDisabled={values.items.length === 1}
-          /> */}
+          <ItemList
+            // handleItemInputChange={handleItemInputChange}
+            handleAddNewItem={appendNewItem}
+            // handleRemoveItem={handleRemoveItem}
+            register={register}
+            items={fields}
+          />
           <S.Buttons>
             <Button
               variation="three"
