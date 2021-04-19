@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  useForm,
+  Controller,
+  useFieldArray,
+  FormProvider,
+} from 'react-hook-form';
 import * as S from './styled';
 import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-left.svg';
 import Input from '../shared/Input';
@@ -11,44 +16,42 @@ import Button from '../shared/Button';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
-  const initialFormValues = {
-    invoice: {
-      date: '',
-      description: '',
-      terms: '',
-    },
-    items: [
-      {
-        id: generateInvoiceNumber(),
-        name: '',
-        price: '',
-        quantity: '',
-      },
-    ],
-    receiver: {
-      city: '',
-      country: '',
-      email: '',
-      name: '',
-      postCode: '',
-      street: '',
-    },
-    sender: {
-      city: '',
-      country: '',
-      postCode: '',
-      street: '',
-    },
-  };
+  // const initialFormValues = {
+  //   invoice: {
+  //     date: '',
+  //     description: '',
+  //     terms: '',
+  //   },
+  //   items: [
+  //     {
+  //       id: generateInvoiceNumber(),
+  //       name: '',
+  //       price: '',
+  //       quantity: '',
+  //     },
+  //   ],
+  //   receiver: {
+  //     city: '',
+  //     country: '',
+  //     email: '',
+  //     name: '',
+  //     postCode: '',
+  //     street: '',
+  //   },
+  //   sender: {
+  //     city: '',
+  //     country: '',
+  //     postCode: '',
+  //     street: '',
+  //   },
+  // };
   const {
     register,
     handleSubmit,
     reset,
     control,
-    watch,
-    getValues,
     formState: { errors },
-  } = useForm(initialFormValues);
+  } = useForm();
   const initialFormErrors = {
     invoice: {
       date: false,
@@ -77,21 +80,26 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       street: false,
     },
   };
-  const { append, fields } = useFieldArray({
+  const { append, fields, remove } = useFieldArray({
     control,
     name: 'items',
   });
-  const values = getValues();
-  const itemsOnInvoice = watch('items');
-  console.log(itemsOnInvoice, values);
-  const appendNewItem = () => {
+  const handleAppendNewItem = useCallback(() => {
     append({
       id: generateInvoiceNumber(),
       name: '',
       price: '',
       quantity: '',
     });
+  }, [append]);
+  const handleRemoveItem = id => {
+    remove(id);
   };
+  console.log;
+
+  useEffect(() => {
+    handleAppendNewItem();
+  }, [handleAppendNewItem]);
 
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
@@ -177,145 +185,147 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           </S.Return>
         ) : null}
         <S.Title>New invoices</S.Title>
-        <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
-          {/* Sender details */}
-          <S.FormGroup>
-            <S.FormGroupTitle>Bill From</S.FormGroupTitle>
-            <Input
-              label="Street Address"
-              {...register('sender.street', {
-                required: true,
-              })}
-              // error={errors.sender.street ? errors.sender.street : null}
-            />
-            <S.InputGroup>
+        <FormProvider register={register} control={control}>
+          <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
+            {/* Sender details */}
+            <S.FormGroup>
+              <S.FormGroupTitle>Bill From</S.FormGroupTitle>
               <Input
-                label="City"
-                error={errors['sender.city']}
-                {...register('sender.city', {
+                label="Street Address"
+                {...register('sender.street', {
                   required: true,
                 })}
+                // error={errors.sender.street ? errors.sender.street : null}
               />
+              <S.InputGroup>
+                <Input
+                  label="City"
+                  error={errors['sender.city']}
+                  {...register('sender.city', {
+                    required: true,
+                  })}
+                />
+                <Input
+                  label="Post Code"
+                  error={errors['sender.postCode']}
+                  {...register('sender.postCode', {
+                    required: true,
+                  })}
+                />
+                <Input
+                  label="Country"
+                  error={errors['sender.country']}
+                  {...register('sender.country', {
+                    required: true,
+                  })}
+                />
+              </S.InputGroup>
+            </S.FormGroup>
+            <S.FormGroup>
+              <S.FormGroupTitle>Bill To</S.FormGroupTitle>
               <Input
-                label="Post Code"
-                error={errors['sender.postCode']}
-                {...register('sender.postCode', {
-                  required: true,
-                })}
-              />
-              <Input
-                label="Country"
-                error={errors['sender.country']}
-                {...register('sender.country', {
-                  required: true,
-                })}
-              />
-            </S.InputGroup>
-          </S.FormGroup>
-          <S.FormGroup>
-            <S.FormGroupTitle>Bill To</S.FormGroupTitle>
-            <Input
-              label="Client's Name"
-              error={errors['receiver.country']}
-              {...register('receiver.country', {
-                required: true,
-              })}
-            />
-            <Input
-              label="Client's Email"
-              error={errors['receiver.email']}
-              {...register('receiver.email', {
-                required: true,
-              })}
-            />
-            <Input
-              label="Street Address"
-              error={errors['receiver.address']}
-              {...register('receiver.address', {
-                required: true,
-              })}
-            />
-            <S.InputGroup>
-              <Input
-                label="City"
-                error={errors['receiver.city']}
-                {...register('receiver.city', {
-                  required: true,
-                })}
-              />
-              <Input
-                label="Post Code"
-                error={errors['receiver.postCode']}
-                {...register('receiver.postCode', {
-                  required: true,
-                })}
-              />
-              <Input
-                label="Country"
+                label="Client's Name"
                 error={errors['receiver.country']}
                 {...register('receiver.country', {
                   required: true,
                 })}
               />
-            </S.InputGroup>
-          </S.FormGroup>
-          <S.InvoiceInfoGroup>
-            <Input
-              label="Invoice Date"
-              error={errors['invoice.date']}
-              {...register('invoice.date', {
-                required: true,
-              })}
-            />
-            <Controller
-              name="invoice.terms"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  label="Payment Terms"
-                  options={[
-                    { label: 'Net 1 Day', value: '1' },
-                    { label: 'Net 7 Days', value: '7' },
-                    { label: 'Net 14 Days', value: '14' },
-                    { label: 'Net 30 Days', value: '30' },
-                  ]}
+              <Input
+                label="Client's Email"
+                error={errors['receiver.email']}
+                {...register('receiver.email', {
+                  required: true,
+                })}
+              />
+              <Input
+                label="Street Address"
+                error={errors['receiver.address']}
+                {...register('receiver.address', {
+                  required: true,
+                })}
+              />
+              <S.InputGroup>
+                <Input
+                  label="City"
+                  error={errors['receiver.city']}
+                  {...register('receiver.city', {
+                    required: true,
+                  })}
                 />
-              )}
+                <Input
+                  label="Post Code"
+                  error={errors['receiver.postCode']}
+                  {...register('receiver.postCode', {
+                    required: true,
+                  })}
+                />
+                <Input
+                  label="Country"
+                  error={errors['receiver.country']}
+                  {...register('receiver.country', {
+                    required: true,
+                  })}
+                />
+              </S.InputGroup>
+            </S.FormGroup>
+            <S.InvoiceInfoGroup>
+              <Input
+                label="Invoice Date"
+                error={errors['invoice.date']}
+                {...register('invoice.date', {
+                  required: true,
+                })}
+              />
+              <Controller
+                name="invoice.terms"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    label="Payment Terms"
+                    options={[
+                      { label: 'Net 1 Day', value: '1' },
+                      { label: 'Net 7 Days', value: '7' },
+                      { label: 'Net 14 Days', value: '14' },
+                      { label: 'Net 30 Days', value: '30' },
+                    ]}
+                  />
+                )}
+              />
+              <Input
+                label="Project Description"
+                error={errors['invoice.description']}
+                {...register('invoice.description', {
+                  required: true,
+                })}
+              />
+            </S.InvoiceInfoGroup>
+            <ItemList
+              // handleItemInputChange={handleItemInputChange}
+              handleAddNewItem={handleAppendNewItem}
+              handleRemoveItem={handleRemoveItem}
+              register={register}
+              items={fields}
             />
-            <Input
-              label="Project Description"
-              error={errors['invoice.description']}
-              {...register('invoice.description', {
-                required: true,
-              })}
-            />
-          </S.InvoiceInfoGroup>
-          <ItemList
-            // handleItemInputChange={handleItemInputChange}
-            handleAddNewItem={appendNewItem}
-            // handleRemoveItem={handleRemoveItem}
-            register={register}
-            items={fields}
-          />
-          <S.Buttons>
-            <Button
-              variation="three"
-              type="button"
-              handleButtonClick={handleDiscardInvoice}
-            >
-              Discard
-            </Button>
-            <S.ButtonGroup>
-              <Button variation="four" type="button">
-                Save as Draft
+            <S.Buttons>
+              <Button
+                variation="three"
+                type="button"
+                handleButtonClick={handleDiscardInvoice}
+              >
+                Discard
               </Button>
-              <Button variation="two" type="submit">
-                Save & Send
-              </Button>
-            </S.ButtonGroup>
-          </S.Buttons>
-        </S.Form>
+              <S.ButtonGroup>
+                <Button variation="four" type="button">
+                  Save as Draft
+                </Button>
+                <Button variation="two" type="submit">
+                  Save & Send
+                </Button>
+              </S.ButtonGroup>
+            </S.Buttons>
+          </S.Form>
+        </FormProvider>
       </S.FormContainer>
     </S.Wrapper>
   );

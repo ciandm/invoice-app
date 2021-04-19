@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useFormContext, useWatch } from 'react-hook-form';
 import * as S from './styled';
 import Input from '../../shared/Input';
 import { ReactComponent as RemoveIcon } from '../../../../public/images/icon-delete.svg';
+
+const Total = ({ control, index }) => {
+  const value = useWatch({
+    control,
+    defaultValue: {},
+    name: `items[${index}]`,
+  });
+  return ((value.quantity || 0) * (value.price || 0)).toFixed(2);
+};
 
 function Item({
   id,
@@ -12,10 +22,10 @@ function Item({
   handleItemInputChange,
   handleRemoveItem,
   removeItemDisabled,
-  register,
   index,
 }) {
-  console.log(id);
+  const { register, control } = useFormContext();
+  console.log(register);
   const handleInput = e => {
     handleItemInputChange(e, id);
   };
@@ -41,12 +51,14 @@ function Item({
       />
       <S.TotalContainer>
         <S.Label>Total</S.Label>
-        <S.Total>{(price * quantity).toFixed(2)}</S.Total>
+        <S.Total>
+          <Total control={control} index={index} />
+        </S.Total>
       </S.TotalContainer>
       <S.Remove
         type="button"
         disabled={removeItemDisabled}
-        onClick={() => handleRemoveItem(id)}
+        onClick={() => handleRemoveItem(index)}
       >
         <RemoveIcon />
       </S.Remove>

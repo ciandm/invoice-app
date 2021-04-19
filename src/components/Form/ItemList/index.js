@@ -12,7 +12,6 @@ function ItemList({
   removeItemDisabled,
   register,
 }) {
-  console.log(items);
   return (
     <S.Container>
       <S.Title>Item List</S.Title>
