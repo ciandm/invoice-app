@@ -2,18 +2,9 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import * as S from './styled';
-import { ReactComponent as ArrowDown } from '../../../../public/images/icon-arrow-down.svg';
-import theme from '../../../theme/theme';
 import { useTheme } from '../../../../pages/_app';
 
-function Select({
-  label,
-  options,
-  handleSelectClick,
-  valuesName,
-  valuesGroup,
-  value,
-}) {
+function Select({ label, options, error, ...restProps }) {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
   const { darkMode } = useTheme();
@@ -30,7 +21,9 @@ function Select({
         ? state.selectProps.colorBlackPearl
         : state.selectProps.colorWhite,
       border: `1px solid ${
-        darkMode
+        error
+          ? state.selectProps.colorBurntSienna
+          : darkMode
           ? state.selectProps.colorEbonyClay
           : state.selectProps.colorSelago
       }`,
@@ -107,6 +100,8 @@ function Select({
         colorChartreuseYellow="hsl(228, 29%, 7%)"
         colorEbonyClay="hsl(233, 30%, 21%)"
         colorSelago="hsl(231, 73%, 93%)"
+        colorBurntSienna="hsl(0, 80%, 63%)"
+        {...restProps}
       />
     </S.SelectContainer>
   );
@@ -118,7 +113,4 @@ Select.propTypes = {
   handleSelectClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.string,
-  valuesGroup: PropTypes.oneOf(['invoice', 'receiver', 'sender']).isRequired,
-  valuesName: PropTypes.string.isRequired,
 };

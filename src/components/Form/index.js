@@ -170,6 +170,8 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     console.log(data);
   };
 
+  console.log(errors);
+
   return (
     <S.Wrapper shown={invoiceFormShown}>
       {windowSize > 768 && (
@@ -195,26 +197,26 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
                 {...register('sender.street', {
                   required: true,
                 })}
-                // error={errors.sender.street ? errors.sender.street : null}
+                error={errors.sender && errors.sender.street}
               />
               <S.InputGroup>
                 <Input
                   label="City"
-                  error={errors['sender.city']}
+                  error={errors.sender && errors.sender.city}
                   {...register('sender.city', {
                     required: true,
                   })}
                 />
                 <Input
                   label="Post Code"
-                  error={errors['sender.postCode']}
+                  error={errors.sender && errors.sender.postCode}
                   {...register('sender.postCode', {
                     required: true,
                   })}
                 />
                 <Input
                   label="Country"
-                  error={errors['sender.country']}
+                  error={errors.sender && errors.sender.country}
                   {...register('sender.country', {
                     required: true,
                   })}
@@ -225,21 +227,21 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               <S.FormGroupTitle>Bill To</S.FormGroupTitle>
               <Input
                 label="Client's Name"
-                error={errors['receiver.country']}
-                {...register('receiver.country', {
+                error={errors.receiver && errors.receiver.name}
+                {...register('receiver.name', {
                   required: true,
                 })}
               />
               <Input
                 label="Client's Email"
-                error={errors['receiver.email']}
+                error={errors.receiver && errors.receiver.email}
                 {...register('receiver.email', {
                   required: true,
                 })}
               />
               <Input
                 label="Street Address"
-                error={errors['receiver.address']}
+                error={errors.receiver && errors.receiver.address}
                 {...register('receiver.address', {
                   required: true,
                 })}
@@ -247,21 +249,21 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               <S.InputGroup>
                 <Input
                   label="City"
-                  error={errors['receiver.city']}
+                  error={errors.receiver && errors.receiver.city}
                   {...register('receiver.city', {
                     required: true,
                   })}
                 />
                 <Input
                   label="Post Code"
-                  error={errors['receiver.postCode']}
+                  error={errors.receiver && errors.receiver.postCode}
                   {...register('receiver.postCode', {
                     required: true,
                   })}
                 />
                 <Input
                   label="Country"
-                  error={errors['receiver.country']}
+                  error={errors.receiver && errors.receiver.country}
                   {...register('receiver.country', {
                     required: true,
                   })}
@@ -270,8 +272,9 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
             </S.FormGroup>
             <S.InvoiceInfoGroup>
               <Input
+                type="date"
                 label="Invoice Date"
-                error={errors['invoice.date']}
+                error={errors.invoice && errors.invoice.date}
                 {...register('invoice.date', {
                   required: true,
                 })}
@@ -279,9 +282,13 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               <Controller
                 name="invoice.terms"
                 control={control}
+                {...register('invoice.terms', {
+                  required: true,
+                })}
                 render={({ field }) => (
                   <Select
                     {...field}
+                    error={errors.invoice && errors.invoice.terms}
                     label="Payment Terms"
                     options={[
                       { label: 'Net 1 Day', value: '1' },
@@ -294,7 +301,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               />
               <Input
                 label="Project Description"
-                error={errors['invoice.description']}
+                error={errors.invoice && errors.invoice.description}
                 {...register('invoice.description', {
                   required: true,
                 })}

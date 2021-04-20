@@ -25,7 +25,6 @@ function Item({
   index,
 }) {
   const { register, control } = useFormContext();
-  console.log(register);
   const handleInput = e => {
     handleItemInputChange(e, id);
   };
