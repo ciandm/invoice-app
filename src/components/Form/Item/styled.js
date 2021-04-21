@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Label as L } from '../../shared/Select/styled';
+import { BodyOne } from '../../../theme/typography';
 
 export const Item = styled.div`
   display: grid;
@@ -33,8 +34,22 @@ export const TotalContainer = styled.div`
 export const Label = styled(L)``;
 
 export const Total = styled.div`
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.constants.colors.baliHai};
-  padding-left: 0;
+  ${BodyOne};
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.blackPearl
+      : theme.constants.colors.white};
+  border: 1px solid
+    ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.ebonyClay
+        : theme.constants.colors.selago};
+  border-radius: 4px;
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.chartreuseYellow};
+  font-family: inherit;
+  font-weight: 700;
+  padding: 1.6rem 2rem;
 `;

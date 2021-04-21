@@ -22,21 +22,21 @@ function Item({ handleRemoveItem, removeItemDisabled, index }) {
         {...register(`items[${index}].name`, {
           required: true,
         })}
-        error={errors.items && errors.items[index].name}
+        error={errors?.items?.[index]?.name}
       />
       <Input
         label="Qty."
         {...register(`items[${index}].quantity`, {
           required: true,
         })}
-        error={errors.items && errors.items[index].price}
+        error={errors?.items?.[index]?.quantity}
       />
       <Input
         label="Price"
         {...register(`items[${index}].price`, {
           required: true,
         })}
-        error={errors.items && errors.items[index].price}
+        error={errors?.items?.[index]?.price}
       />
       <S.TotalContainer>
         <S.Label>Total</S.Label>
