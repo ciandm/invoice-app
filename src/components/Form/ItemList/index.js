@@ -5,10 +5,9 @@ import * as S from './styled';
 import Button from '../../shared/Button';
 
 function ItemList({
-  items,
-  handleItemInputChange,
+  handleAppendNewItem,
   handleRemoveItem,
-  handleAddNewItem,
+  items,
   removeItemDisabled,
   register,
 }) {
@@ -22,17 +21,16 @@ function ItemList({
               key={item.id}
               index={index}
               {...item}
-              handleItemInputChange={handleItemInputChange}
-              handleRemoveItem={handleRemoveItem}
               removeItemDisabled={removeItemDisabled}
+              handleRemoveItem={handleRemoveItem}
               register={register}
             />
           ))}
       </S.Items>
       <Button
-        handleButtonClick={handleAddNewItem}
         type="button"
         variation="one"
+        handleButtonClick={handleAppendNewItem}
       >
         Add New Item
       </Button>
@@ -43,9 +41,6 @@ function ItemList({
 export default ItemList;
 
 ItemList.propTypes = {
-  handleAddNewItem: PropTypes.func.isRequired,
-  handleItemInputChange: PropTypes.func.isRequired,
-  handleRemoveItem: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

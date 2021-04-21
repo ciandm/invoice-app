@@ -14,7 +14,7 @@ export const Label = styled.span`
     theme.darkMode
       ? theme.constants.colors.baliHai
       : theme.constants.colors.shipCove};
-  cursor: default;
+  cursor: def ault;
   padding-bottom: 1rem;
 `;
 

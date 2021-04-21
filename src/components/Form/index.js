@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import {
   useForm,
   Controller,
@@ -16,35 +16,6 @@ import Button from '../shared/Button';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
-  // const initialFormValues = {
-  //   invoice: {
-  //     date: '',
-  //     description: '',
-  //     terms: '',
-  //   },
-  //   items: [
-  //     {
-  //       id: generateInvoiceNumber(),
-  //       name: '',
-  //       price: '',
-  //       quantity: '',
-  //     },
-  //   ],
-  //   receiver: {
-  //     city: '',
-  //     country: '',
-  //     email: '',
-  //     name: '',
-  //     postCode: '',
-  //     street: '',
-  //   },
-  //   sender: {
-  //     city: '',
-  //     country: '',
-  //     postCode: '',
-  //     street: '',
-  //   },
-  // };
   const {
     register,
     handleSubmit,
@@ -52,34 +23,6 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     control,
     formState: { errors },
   } = useForm();
-  const initialFormErrors = {
-    invoice: {
-      date: false,
-      description: false,
-      terms: false,
-    },
-    items: [
-      {
-        name: false,
-        price: false,
-        quantity: false,
-      },
-    ],
-    receiver: {
-      city: false,
-      country: false,
-      email: false,
-      name: false,
-      postCode: false,
-      street: false,
-    },
-    sender: {
-      city: false,
-      country: false,
-      postCode: false,
-      street: false,
-    },
-  };
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'items',
@@ -92,85 +35,40 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       quantity: '',
     });
   }, [append]);
-  const handleRemoveItem = id => {
-    remove(id);
-  };
-  console.log;
+  const handleRemoveItem = useCallback(
+    id => {
+      remove(id);
+    },
+    [remove]
+  );
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    handleAppendNewItem();
-  }, [handleAppendNewItem]);
-
-  const [formErrors, setFormErrors] = useState(initialFormErrors);
-
-  // const handleInputChange = e => {
-  //   const valueGroup = e.getAttribute('data-value-group');
-  //   const { name, value } = e;
-  //   setValues(prevState => ({
-  //     ...prevState,
-  //     [valueGroup]: {
-  //       ...prevState[valueGroup],
-  //       [name]: value,
-  //     },
-  //   }));
-  // };
-
-  // const handleItemInputChange = (e, id) => {
-  //   const indexInArray = values.items.findIndex(x => x.id === id);
-  //   const { name, value } = e;
-  //   const allItems = [...values.items];
-  //   const itemToUpdate = allItems[indexInArray];
-  //   itemToUpdate[name] = value;
-  //   allItems[indexInArray] = itemToUpdate;
-  //   setValues(prevState => ({
-  //     ...prevState,
-  //     items: [...allItems],
-  //   }));
-  // };
-
-  // const handleSelectClick = (group, name, value) => {
-  //   setValues(prevState => ({
-  //     ...prevState,
-  //     [group]: {
-  //       ...prevState[group],
-  //       [name]: value,
-  //     },
-  //   }));
-  // };
-
-  // const handleAddNewItem = () => {
-  //   setValues(prevValues => ({
-  //     ...prevValues,
-  //     items: [
-  //       ...prevValues.items,
-  //       {
-  //         id: generateInvoiceNumber(),
-  //         name: '',
-  //         price: '',
-  //         quantity: '',
-  //       },
-  //     ],
-  //   }));
-  // };
-
-  // const handleRemoveItem = id => {
-  //   const filteredItems = values.items.filter(i => i.id !== id);
-  //   setValues(prevValues => ({
-  //     ...prevValues,
-  //     items: filteredItems,
-  //   }));
-  // };
+    if (!isMounted.current) {
+      append({
+        id: generateInvoiceNumber(),
+        name: '',
+        price: '',
+        quantity: '',
+      });
+      isMounted.current = true;
+    }
+  }, [append]);
 
   const handleDiscardInvoice = () => {
     reset();
+    append({
+      id: generateInvoiceNumber(),
+      name: '',
+      price: '',
+      quantity: '',
+    });
     toggleInvoiceForm();
   };
 
   const handleFormSubmit = data => {
     console.log(data);
   };
-
-  console.log(errors);
 
   return (
     <S.Wrapper shown={invoiceFormShown}>
@@ -187,7 +85,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
           </S.Return>
         ) : null}
         <S.Title>New invoices</S.Title>
-        <FormProvider register={register} control={control}>
+        <FormProvider register={register} control={control} errors={errors}>
           <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
             {/* Sender details */}
             <S.FormGroup>
@@ -282,9 +180,6 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               <Controller
                 name="invoice.terms"
                 control={control}
-                {...register('invoice.terms', {
-                  required: true,
-                })}
                 render={({ field }) => (
                   <Select
                     {...field}
@@ -296,6 +191,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
                       { label: 'Net 14 Days', value: '14' },
                       { label: 'Net 30 Days', value: '30' },
                     ]}
+                    defaultValue={{ label: 'Net 1 Days', value: '1' }}
                   />
                 )}
               />
@@ -308,8 +204,8 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
               />
             </S.InvoiceInfoGroup>
             <ItemList
-              // handleItemInputChange={handleItemInputChange}
-              handleAddNewItem={handleAppendNewItem}
+              removeItemDisabled={fields.length === 1}
+              handleAppendNewItem={handleAppendNewItem}
               handleRemoveItem={handleRemoveItem}
               register={register}
               items={fields}
