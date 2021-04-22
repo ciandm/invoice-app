@@ -10,6 +10,14 @@ export const Item = styled.div`
   & > :first-child {
     grid-column: 1 / -1;
   }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    grid-template-columns: 1fr 4.8rem 10rem 7rem min-content;
+
+    & > :first-child {
+      grid-column: 1 / 2;
+    }
+  }
 `;
 
 export const Remove = styled.button.attrs(({ type }) => ({
@@ -24,6 +32,10 @@ export const Remove = styled.button.attrs(({ type }) => ({
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  &:hover svg path {
+    fill: ${({ theme }) => theme.constants.colors.burntSienna};
+  }
 `;
 
 export const TotalContainer = styled.div`
@@ -35,15 +47,8 @@ export const Label = styled(L)``;
 
 export const Total = styled.div`
   ${BodyOne};
-  background-color: ${({ theme }) =>
-    theme.darkMode
-      ? theme.constants.colors.blackPearl
-      : theme.constants.colors.white};
-  border: 1px solid
-    ${({ theme }) =>
-      theme.darkMode
-        ? theme.constants.colors.ebonyClay
-        : theme.constants.colors.selago};
+  background-color: transparent;
+  border: none;
   border-radius: 4px;
   color: ${({ theme }) =>
     theme.darkMode
@@ -51,5 +56,5 @@ export const Total = styled.div`
       : theme.constants.colors.chartreuseYellow};
   font-family: inherit;
   font-weight: 700;
-  padding: 1.6rem 2rem;
+  padding: 1.6rem 0;
 `;

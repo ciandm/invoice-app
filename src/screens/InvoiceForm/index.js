@@ -1,12 +1,11 @@
-import React from 'react';
 import Form from '../../components/Form';
+import FormContextProvider from './FormProvider';
 
-function InvoiceForm({ toggleInvoiceForm, invoiceFormShown }) {
+function InvoiceForm() {
   return (
-    <Form
-      toggleInvoiceForm={toggleInvoiceForm}
-      invoiceFormShown={invoiceFormShown}
-    />
+    <FormContextProvider>
+      <Form />
+    </FormContextProvider>
   );
 }
 

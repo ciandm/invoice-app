@@ -30,6 +30,7 @@ function Item({ handleRemoveItem, removeItemDisabled, index }) {
           required: true,
         })}
         error={errors?.items?.[index]?.quantity}
+        data-compressed="true"
       />
       <Input
         label="Price"
@@ -59,9 +60,5 @@ export default Item;
 
 Item.propTypes = {
   handleRemoveItem: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  price: PropTypes.string,
-  quantity: PropTypes.string,
   removeItemDisabled: PropTypes.bool.isRequired,
 };

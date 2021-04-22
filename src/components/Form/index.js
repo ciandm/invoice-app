@@ -13,6 +13,7 @@ import Select from '../shared/Select';
 import ItemList from './ItemList';
 import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 import Button from '../shared/Button';
+import { useFormContext } from '../../screens/InvoiceForm/FormProvider';
 
 function Form({ toggleInvoiceForm, invoiceFormShown }) {
   const windowSize = useWindowSize();
@@ -21,6 +22,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors },
   } = useForm();
   const { append, fields, remove } = useFieldArray({
@@ -41,6 +43,12 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     },
     [remove]
   );
+  const {
+    formId,
+    formShown,
+    handleSetNewFormId,
+    handleShowForm,
+  } = useFormContext();
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -55,6 +63,14 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     }
   }, [append]);
 
+  // set as default value after form has mounted
+  useEffect(() => {
+    setTimeout(() => {
+      setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
+    }, [1000]);
+    // eslint-disable-next-line
+  }, []);
+
   const handleDiscardInvoice = () => {
     reset();
     append({
@@ -63,6 +79,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       price: '',
       quantity: '',
     });
+    setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
     toggleInvoiceForm();
   };
 
@@ -191,7 +208,6 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
                       { label: 'Net 14 Days', value: '14' },
                       { label: 'Net 30 Days', value: '30' },
                     ]}
-                    defaultValue={{ label: 'Net 1 Days', value: '1' }}
                   />
                 )}
               />

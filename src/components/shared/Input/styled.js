@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { BodyOne } from '../../../theme/typography';
-import Calendar from '../../../../public/images/icon-calendar.svg';
 
 export const Group = styled.div`
   display: flex;
@@ -58,6 +57,10 @@ export const Input = styled.input.attrs(({ type }) => ({
     position: absolute;
     right: 2rem;
     width: 1.6rem;
+  }
+
+  &[data-compressed='true'] {
+    padding: 1.6rem 0.8rem;
   }
 
   &::-webkit-calendar-picker-indicator {
