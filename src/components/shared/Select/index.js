@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import * as S from './styled';
-import { useTheme } from '../../../../pages/_app';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 const Select = React.forwardRef(
   ({ label, options, error, ...restProps }, ref) => {
