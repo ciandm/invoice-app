@@ -13,9 +13,9 @@ import Select from '../shared/Select';
 import ItemList from './ItemList';
 import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 import Button from '../shared/Button';
-import { useFormContext } from '../../screens/InvoiceForm/FormProvider';
+import { useInvoiceContext } from '../../contexts/InvoiceContext';
 
-function Form({ toggleInvoiceForm, invoiceFormShown }) {
+function Form() {
   const windowSize = useWindowSize();
   const {
     register,
@@ -48,7 +48,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
     formShown,
     handleSetNewFormId,
     handleShowForm,
-  } = useFormContext();
+  } = useInvoiceContext();
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
       quantity: '',
     });
     setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
-    toggleInvoiceForm();
+    handleShowForm();
   };
 
   const handleFormSubmit = data => {
@@ -88,16 +88,13 @@ function Form({ toggleInvoiceForm, invoiceFormShown }) {
   };
 
   return (
-    <S.Wrapper shown={invoiceFormShown}>
+    <S.Wrapper shown={formShown}>
       {windowSize > 768 && (
-        <S.Overlay
-          shown={invoiceFormShown}
-          onClick={() => toggleInvoiceForm()}
-        />
+        <S.Overlay shown={formShown} onClick={() => handleShowForm()} />
       )}
-      <S.FormContainer shown={invoiceFormShown}>
+      <S.FormContainer shown={formShown}>
         {windowSize < 768 ? (
-          <S.Return onClick={() => toggleInvoiceForm()}>
+          <S.Return onClick={() => handleShowForm()}>
             <ArrowLeft /> Go back
           </S.Return>
         ) : null}

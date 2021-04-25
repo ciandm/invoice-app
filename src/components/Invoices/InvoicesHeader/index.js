@@ -5,15 +5,13 @@ import Button from '../../shared/Button';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { ReactComponent as ArrowDown } from '../../../../public/images/icon-arrow-down.svg';
 import Checkbox from '../../shared/Checkbox';
+import { useInvoiceContext } from '../../../contexts/InvoiceContext';
 
-function InvoicesHeader({
-  activeFilters,
-  handleCheckboxClick,
-  invoiceCount,
-  toggleInvoiceForm,
-}) {
+function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
   const windowSize = useWindowSize();
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const { handleShowForm } = useInvoiceContext();
 
   return (
     <S.Header>
@@ -68,7 +66,7 @@ function InvoicesHeader({
         <Button
           type="button"
           variation="one"
-          handleButtonClick={toggleInvoiceForm}
+          handleButtonClick={handleShowForm}
         >
           {windowSize > 768 ? 'New Invoice' : 'New'}
         </Button>

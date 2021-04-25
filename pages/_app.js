@@ -4,6 +4,7 @@ import Head from 'next/head';
 import GlobalStyle from '../src/theme/GlobalStyle';
 import theme from '../src/theme/theme';
 import useDarkMode from '../src/hooks/useDarkMode';
+import InvoiceContextProvider from '../src/contexts/InvoiceContext';
 
 const ThemeContext = createContext({
   darkMode: false,
@@ -50,8 +51,10 @@ export default function App({ Component, pageProps }) {
             toggleTheme,
           }}
         >
-          <GlobalStyle />
-          <Component {...pageProps} />
+          <InvoiceContextProvider>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </InvoiceContextProvider>
         </ThemeContext.Provider>
       </StyledThemeProvider>
     </>
