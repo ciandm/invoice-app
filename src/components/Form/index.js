@@ -6,7 +6,6 @@ import {
   FormProvider,
 } from 'react-hook-form';
 import * as S from './styled';
-import { ReactComponent as ArrowLeft } from '../../../public/images/icon-arrow-left.svg';
 import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
@@ -14,6 +13,7 @@ import ItemList from './ItemList';
 import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 import Button from '../shared/Button';
 import { useInvoiceContext } from '../../contexts/InvoiceContext';
+import Return from '../shared/Return';
 
 function Form() {
   const windowSize = useWindowSize();
@@ -93,11 +93,7 @@ function Form() {
         <S.Overlay shown={formShown} onClick={() => handleShowForm()} />
       )}
       <S.FormContainer shown={formShown}>
-        {windowSize < 768 ? (
-          <S.Return onClick={() => handleShowForm()}>
-            <ArrowLeft /> Go back
-          </S.Return>
-        ) : null}
+        {windowSize < 768 ? <Return /> : null}
         <S.Title>New invoices</S.Title>
         <FormProvider register={register} control={control} errors={errors}>
           <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
