@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
-import { H1, H4, BodyOne } from '../../theme/typography';
+import { H1, H4 } from '../../theme/typography';
 
 const slideFormIn = keyframes`
   0% {

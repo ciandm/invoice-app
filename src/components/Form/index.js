@@ -93,7 +93,9 @@ function Form() {
         <S.Overlay shown={formShown} onClick={() => handleShowForm()} />
       )}
       <S.FormContainer shown={formShown}>
-        {windowSize < 768 ? <Return /> : null}
+        {windowSize < 768 ? (
+          <Return handleButtonClick={handleShowForm} />
+        ) : null}
         <S.Title>New invoices</S.Title>
         <FormProvider register={register} control={control} errors={errors}>
           <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
