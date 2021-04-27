@@ -172,8 +172,11 @@ export const Title = styled.h3`
 `;
 
 export const Footer = styled.div`
+  border-radius: 0.8rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  margin-top: 4rem;
 `;
 
 export const ItemList = styled.div`
@@ -188,8 +191,14 @@ export const ItemList = styled.div`
 `;
 
 export const Item = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
+`;
+
+export const ItemGroup = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ItemTitle = styled.h4`
@@ -198,6 +207,7 @@ export const ItemTitle = styled.h4`
     theme.darkMode
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
+  padding-bottom: 0.8rem;
 `;
 
 export const ItemQuantity = styled.p`
@@ -208,11 +218,33 @@ export const ItemQuantity = styled.p`
       : theme.constants.colors.shipCove};
 `;
 
+export const ItemAmount = styled.h4`
+  ${H4};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.chartreuseYellow};
+`;
+
 export const AmountDue = styled.div`
+  align-items: center;
   background-color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.chartreuseYellow
       : theme.constants.colors.blackPearl};
   display: flex;
   justify-content: space-between;
+  padding: 2.4rem;
+`;
+
+export const AmountSpan = styled.span`
+  ${BodyTwo};
+  color: ${({ theme }) => theme.constants.colors.white};
+`;
+
+export const AmountTotal = styled.h2`
+  color: ${({ theme }) => theme.constants.colors.white};
+  font-size: 2rem;
+  line-height: 3.2rem;
+  letter-spacing: -0.42px;
 `;

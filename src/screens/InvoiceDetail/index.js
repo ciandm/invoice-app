@@ -31,6 +31,35 @@ const Address = ({ address }) => {
   );
 };
 
+const AmountFooter = ({ items }) => {
+  const totalAmount = items.reduce((acc, current) => {
+    return acc + current.price * current.quantity;
+  }, 0);
+  return (
+    <S.Footer>
+      <S.ItemList>
+        {items.map((i, index) => (
+          <S.Item key={index}>
+            <S.ItemGroup>
+              <S.ItemTitle>{i.name}</S.ItemTitle>
+              <S.ItemQuantity>{`${i.quantity} x £${i.price.toFixed(
+                2
+              )}`}</S.ItemQuantity>
+            </S.ItemGroup>
+            <S.ItemAmount>
+              £ {`${(i.price * i.quantity).toFixed(2)}`}
+            </S.ItemAmount>
+          </S.Item>
+        ))}
+      </S.ItemList>
+      <S.AmountDue>
+        <S.AmountSpan>Amount Due</S.AmountSpan>
+        <S.AmountTotal>£ {totalAmount.toFixed(2)} </S.AmountTotal>
+      </S.AmountDue>
+    </S.Footer>
+  );
+};
+
 function InvoiceDetail() {
   const router = useRouter();
   return (
@@ -79,6 +108,12 @@ function InvoiceDetail() {
               </DetailWithAddress>
               <DetailGroup label="Sent To" title="alexgrim@mail.com" />
             </S.InvoiceDetails>
+            <AmountFooter
+              items={[
+                { name: 'Banner Design', price: 56, quantity: 2 },
+                { name: 'Banner Design', price: 56, quantity: 2 },
+              ]}
+            />
           </S.Details>
         </S.Content>
       </S.Wrapper>
