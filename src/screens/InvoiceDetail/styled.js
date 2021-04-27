@@ -142,13 +142,24 @@ export const InvoiceDetails = styled.div`
 export const DetailGroup = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 3.2rem;
+  /* padding-bottom: 3.2rem; */
+
+  & + & {
+    padding-top: 3.2rem;
+  }
 `;
 
 export const DateGroup = styled.div`
   display: flex;
   flex-direction: column;
   padding-right: 4rem;
+  padding-bottom: 3.2rem;
+`;
+
+export const DetailWithAddress = styled.div`
+  display: grid;
+  gap: 0.8rem;
+  padding-bottom: 3.2rem;
 `;
 
 export const Title = styled.h3`
@@ -158,4 +169,50 @@ export const Title = styled.h3`
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
   padding-top: 1.2rem;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ItemList = styled.div`
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.ebonyClay
+      : theme.constants.colors.athensGray};
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr;
+  padding: 2.4rem;
+`;
+
+export const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ItemTitle = styled.h4`
+  ${H4};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.white
+      : theme.constants.colors.chartreuseYellow};
+`;
+
+export const ItemQuantity = styled.p`
+  ${H4};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.baliHai
+      : theme.constants.colors.shipCove};
+`;
+
+export const AmountDue = styled.div`
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.chartreuseYellow
+      : theme.constants.colors.blackPearl};
+  display: flex;
+  justify-content: space-between;
 `;

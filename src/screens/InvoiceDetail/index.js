@@ -4,6 +4,33 @@ import Nav from '../../components/shared/Nav';
 import * as S from './styled';
 import Return from '../../components/shared/Return/index';
 
+const DetailGroup = ({ label, title }) => {
+  return (
+    <S.DetailGroup>
+      <S.Label>{label}</S.Label>
+      <S.Title>{title}</S.Title>
+    </S.DetailGroup>
+  );
+};
+
+const DetailWithAddress = ({ children }) => {
+  return <S.DetailWithAddress>{children}</S.DetailWithAddress>;
+};
+
+const DateGroup = ({ children }) => {
+  return <S.DateGroup>{children}</S.DateGroup>;
+};
+
+const Address = ({ address }) => {
+  return (
+    <S.Address>
+      {address.map((line, index) => (
+        <S.AddressLine key={index}>{line}</S.AddressLine>
+      ))}
+    </S.Address>
+  );
+};
+
 function InvoiceDetail() {
   const router = useRouter();
   return (
@@ -25,38 +52,32 @@ function InvoiceDetail() {
                 </S.Id>
                 <S.Label>Graphic Design</S.Label>
               </S.IdGroup>
-              <S.Address>
-                <S.AddressLine>19 Union Terrace</S.AddressLine>
-                <S.AddressLine>London</S.AddressLine>
-                <S.AddressLine>E1 3EZ</S.AddressLine>
-                <S.AddressLine>United Kingdom</S.AddressLine>
-              </S.Address>
+              <Address
+                address={[
+                  '19 Union Terrace',
+                  'London',
+                  'E1 3EZ',
+                  'United Kingdom',
+                ]}
+              />
             </S.Header>
             <S.InvoiceDetails>
-              <S.DateGroup>
-                <S.DetailGroup>
-                  <S.Label>Invoice Date</S.Label>
-                  <S.Title>21 Aug 2021</S.Title>
-                </S.DetailGroup>
-                <S.DetailGroup>
-                  <S.Label>Payment Due</S.Label>
-                  <S.Title>20 Sep 2021</S.Title>
-                </S.DetailGroup>
-              </S.DateGroup>
-              <S.DetailGroup>
-                <S.Label>Bill To</S.Label>
-                <S.Title>Alex Grim</S.Title>
-                <S.Address>
-                  <S.AddressLine>19 Union Terrace</S.AddressLine>
-                  <S.AddressLine>London</S.AddressLine>
-                  <S.AddressLine>E1 3EZ</S.AddressLine>
-                  <S.AddressLine>United Kingdom</S.AddressLine>
-                </S.Address>
-              </S.DetailGroup>
-              <S.DetailGroup>
-                <S.Label>Sent To</S.Label>
-                <S.Title>alexgrim@mail.com</S.Title>
-              </S.DetailGroup>
+              <DateGroup>
+                <DetailGroup label="Invoice Date" title="21 Aug 2021" />
+                <DetailGroup label="Payment Due" title="20 Sep 2021" />
+              </DateGroup>
+              <DetailWithAddress>
+                <DetailGroup label="Bill To" title="Alex Grim" />
+                <Address
+                  address={[
+                    '19 Union Terrace',
+                    'London',
+                    'E1 3EZ',
+                    'United Kingdom',
+                  ]}
+                />
+              </DetailWithAddress>
+              <DetailGroup label="Sent To" title="alexgrim@mail.com" />
             </S.InvoiceDetails>
           </S.Details>
         </S.Content>
