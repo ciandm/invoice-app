@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Nav from '../../components/shared/Nav';
 import * as S from './styled';
 import Return from '../../components/shared/Return/index';
+import AmountFooter from './AmountFooter';
 
 const DetailGroup = ({ label, title }) => {
   return (
@@ -28,35 +29,6 @@ const Address = ({ address }) => {
         <S.AddressLine key={index}>{line}</S.AddressLine>
       ))}
     </S.Address>
-  );
-};
-
-const AmountFooter = ({ items }) => {
-  const totalAmount = items.reduce((acc, current) => {
-    return acc + current.price * current.quantity;
-  }, 0);
-  return (
-    <S.Footer>
-      <S.ItemList>
-        {items.map((i, index) => (
-          <S.Item key={index}>
-            <S.ItemGroup>
-              <S.ItemTitle>{i.name}</S.ItemTitle>
-              <S.ItemQuantity>{`${i.quantity} x £${i.price.toFixed(
-                2
-              )}`}</S.ItemQuantity>
-            </S.ItemGroup>
-            <S.ItemAmount>
-              £ {`${(i.price * i.quantity).toFixed(2)}`}
-            </S.ItemAmount>
-          </S.Item>
-        ))}
-      </S.ItemList>
-      <S.AmountDue>
-        <S.AmountSpan>Amount Due</S.AmountSpan>
-        <S.AmountTotal>£ {totalAmount.toFixed(2)} </S.AmountTotal>
-      </S.AmountDue>
-    </S.Footer>
   );
 };
 

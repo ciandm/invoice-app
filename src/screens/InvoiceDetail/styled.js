@@ -16,6 +16,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 3.2rem 2.4rem 5.6rem 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding: 4.8rem 4rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -33,6 +37,10 @@ export const StatusBar = styled.div`
   justify-content: space-between;
   margin-bottom: 1.6rem;
   padding: 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    justify-content: flex-start;
+  }
 `;
 
 export const StatusTag = styled.span`
@@ -41,6 +49,10 @@ export const StatusTag = styled.span`
     theme.darkMode
       ? theme.constants.colors.selago
       : theme.constants.colors.shipCove};
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding-right: 1.6rem;
+  }
 `;
 
 export const Status = styled.div`
@@ -87,12 +99,22 @@ export const Details = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding: 3.2rem;
+  }
 `;
 
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 3.2rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+  }
 `;
 
 export const IdGroup = styled.div`
@@ -137,12 +159,17 @@ export const AddressLine = styled.li``;
 export const InvoiceDetails = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 10.4rem;
+  }
 `;
 
 export const DetailGroup = styled.div`
   display: flex;
   flex-direction: column;
-  /* padding-bottom: 3.2rem; */
 
   & + & {
     padding-top: 3.2rem;
@@ -154,12 +181,23 @@ export const DateGroup = styled.div`
   flex-direction: column;
   padding-right: 4rem;
   padding-bottom: 3.2rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding-right: 0;
+    padding-bottom: 0;
+  }
 `;
 
 export const DetailWithAddress = styled.div`
   display: grid;
   gap: 0.8rem;
   padding-bottom: 3.2rem;
+  padding-right: 4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding-bottom: 0;
+    padding-right: 0;
+  }
 `;
 
 export const Title = styled.h3`
@@ -196,6 +234,12 @@ export const Item = styled.div`
   justify-content: space-between;
 `;
 
+export const ItemGridRow = styled.div`
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 1fr 8rem 8.8rem 10.8rem;
+`;
+
 export const ItemGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -210,12 +254,28 @@ export const ItemTitle = styled.h4`
   padding-bottom: 0.8rem;
 `;
 
+export const ItemPrice = styled(ItemTitle)`
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.selago
+      : theme.constants.colors.shipCove};
+  text-align: right;
+`;
+
 export const ItemQuantity = styled.p`
   ${H4};
   color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.baliHai
       : theme.constants.colors.shipCove};
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    color: ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.selago
+        : theme.constants.colors.shipCove};
+    text-align: right;
+  }
 `;
 
 export const ItemAmount = styled.h4`
@@ -224,6 +284,14 @@ export const ItemAmount = styled.h4`
     theme.darkMode
       ? theme.constants.colors.white
       : theme.constants.colors.chartreuseYellow};
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    color: ${({ theme }) =>
+      theme.darkMode
+        ? theme.constants.colors.selago
+        : theme.constants.colors.shipCove};
+    text-align: right;
+  }
 `;
 
 export const AmountDue = styled.div`
@@ -240,6 +308,18 @@ export const AmountDue = styled.div`
 export const AmountSpan = styled.span`
   ${BodyTwo};
   color: ${({ theme }) => theme.constants.colors.white};
+`;
+
+export const TableHeader = styled.span`
+  ${BodyTwo};
+  color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.baliHai
+      : theme.constants.colors.shipCove};
+
+  &:not(:first-of-type) {
+    text-align: right;
+  }
 `;
 
 export const AmountTotal = styled.h2`
