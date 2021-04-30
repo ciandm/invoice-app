@@ -8,11 +8,7 @@ export const Button = styled.button.attrs(({ type }) => ({
   border-radius: 2.4rem;
   color: ${({ theme }) => theme.constants.colors.white};
   font-family: inherit;
-  padding: 1.6rem 1.6rem;
-
-  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
-    padding: 1.6rem 2.4rem;
-  }
+  padding: 1.6rem 2.4rem;
 `;
 
 export const ButtonOne = styled(Button)`

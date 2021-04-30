@@ -23,6 +23,10 @@ const AmountFooterLarge = ({ items, totalAmount }) => {
           </S.ItemGridRow>
         ))}
       </S.ItemList>
+      <S.AmountDue>
+        <S.AmountSpan>Amount Due</S.AmountSpan>
+        <S.AmountTotal>£ {totalAmount.toFixed(2)} </S.AmountTotal>
+      </S.AmountDue>
     </S.Footer>
   );
 };

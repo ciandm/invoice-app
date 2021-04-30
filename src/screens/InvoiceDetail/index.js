@@ -2,8 +2,11 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Nav from '../../components/shared/Nav';
 import * as S from './styled';
-import Return from '../../components/shared/Return/index';
+import Return from '../../components/shared/Return';
 import AmountFooter from './AmountFooter';
+import InvoiceButtons from './InvoiceButtons';
+import StatusBar from './StatusBar';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const DetailGroup = ({ label, title }) => {
   return (
@@ -33,6 +36,7 @@ const Address = ({ address }) => {
 };
 
 function InvoiceDetail() {
+  const isMobile = useWindowSize() < 767;
   const router = useRouter();
   return (
     <S.Container>
@@ -40,10 +44,7 @@ function InvoiceDetail() {
       <S.Wrapper>
         <Return handleButtonClick={() => router.push('/')} />
         <S.Content>
-          <S.StatusBar>
-            <S.StatusTag>Status</S.StatusTag>
-            <S.Status>Pending</S.Status>
-          </S.StatusBar>
+          <StatusBar isMobile={isMobile} />
           <S.Details>
             <S.Header>
               <S.IdGroup>
@@ -89,6 +90,7 @@ function InvoiceDetail() {
           </S.Details>
         </S.Content>
       </S.Wrapper>
+      {isMobile ? <InvoiceButtons /> : null}
     </S.Container>
   );
 }

@@ -15,10 +15,16 @@ export const Container = styled.section`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 3.2rem 2.4rem 5.6rem 2.4rem;
+  padding: 3.2rem 2.4rem 0 2.4rem;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    margin: 0 auto;
     padding: 4.8rem 4rem;
+  }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    margin: 0 auto;
+    padding: 6.4rem 0 0;
   }
 `;
 
@@ -37,6 +43,13 @@ export const StatusBar = styled.div`
   justify-content: space-between;
   margin-bottom: 1.6rem;
   padding: 2.4rem;
+`;
+
+export const StatusGroup = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     justify-content: flex-start;
@@ -102,6 +115,10 @@ export const Details = styled.div`
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     padding: 3.2rem;
+  }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.desktop} {
+    padding: 4.8rem;
   }
 `;
 
@@ -226,6 +243,10 @@ export const ItemList = styled.div`
   gap: 2.4rem;
   grid-template-columns: 1fr;
   padding: 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding: 2.4rem 3.2rem;
+  }
 `;
 
 export const Item = styled.div`
@@ -303,6 +324,10 @@ export const AmountDue = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    padding: 2.4rem 3.2rem;
+  }
 `;
 
 export const AmountSpan = styled.span`
@@ -327,4 +352,24 @@ export const AmountTotal = styled.h2`
   font-size: 2rem;
   line-height: 3.2rem;
   letter-spacing: -0.42px;
+`;
+
+export const ButtonGroup = styled.div`
+  align-items: center;
+  background-color: ${({ theme }) =>
+    theme.darkMode
+      ? theme.constants.colors.blackPearl
+      : theme.constants.colors.white};
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, max-content) 1fr;
+  margin-top: 5.6rem;
+  padding: 2.4rem;
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    background-color: transparent;
+    grid-template-columns: repeat(3, max-content);
+    margin-top: 0;
+    padding: 0;
+  }
 `;
