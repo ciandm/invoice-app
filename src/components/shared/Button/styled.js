@@ -39,7 +39,7 @@ export const ButtonTwo = styled(Button)`
   background-color: ${({ theme }) => theme.constants.colors.cornflowerBlue};
 
   &:hover {
-    background-color: ${({ theme }) => theme.constants.colors.helioTrope};
+    background-color: ${({ theme }) => theme.constants.colors.heliotrope};
   }
 `;
 

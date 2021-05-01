@@ -35,4 +35,8 @@ export const Status = styled.div`
     margin-right: 8px;
     width: 8px;
   }
+
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    margin: ${({ margin }) => (margin ? '0 2rem 0 4rem' : '')};
+  }
 `;

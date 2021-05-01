@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import * as S from './styled';
 import { ReactComponent as ArrowRight } from '../../../../public/images/icon-arrow-right.svg';
+import Status from '../../shared/Status';
 
 function InvoiceCard({ clientName, id, paymentDue, status, total }) {
   const getDateWords = d => {
@@ -25,13 +26,7 @@ function InvoiceCard({ clientName, id, paymentDue, status, total }) {
         <S.Date>Due {getDateWords(paymentDue)}</S.Date>
         <S.Price>£ {total.toFixed(2)}</S.Price>
         <S.Group>
-          <S.Status status={status}>
-            {status === 'paid'
-              ? 'Paid'
-              : status === 'pending'
-              ? 'Pending'
-              : 'Draft'}
-          </S.Status>
+          <Status status={status} margin />
           <S.Arrow>
             <ArrowRight />
           </S.Arrow>
