@@ -71,7 +71,7 @@ export const FormContainer = styled.div`
       : css`
           ${slideFormOut}
         `};
-  animation-fill-mode: both;
+  animation-fill-mode: forwards;
   animation-duration: 0.25s;
   animation-timing-function: ease-in-out;
   background-color: ${({ theme }) =>

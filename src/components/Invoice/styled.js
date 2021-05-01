@@ -12,13 +12,18 @@ export const Container = styled.section`
   }
 `;
 
+export const Invoice = styled.div`
+  @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
+    margin: 0 auto;
+  }
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 3.2rem 2.4rem 0 2.4rem;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
-    margin: 0 auto;
     padding: 4.8rem 4rem;
   }
 

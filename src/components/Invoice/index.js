@@ -1,20 +1,25 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Nav from '../shared/Nav';
-import * as S from './styled';
-import Return from '../shared/Return';
-import InvoiceButtons from './InvoiceButtons';
 import StatusBar from './StatusBar';
 import useWindowSize from '../../hooks/useWindowSize';
 import Details from './Details';
+import InvoiceButtons from './InvoiceButtons';
+import Return from '../shared/Return';
+import * as S from './styled';
 
 function Invoice() {
   const isMobile = useWindowSize() < 767;
+  const router = useRouter();
+
   return (
-    <>
-      <StatusBar isMobile={isMobile} />
-      <Details />
-    </>
+    <S.Invoice>
+      <S.Wrapper>
+        <Return handleButtonClick={() => router.push('/')} />
+        <StatusBar isMobile={isMobile} />
+        <Details />
+      </S.Wrapper>
+      {isMobile ? <InvoiceButtons /> : null}
+    </S.Invoice>
   );
 }
 

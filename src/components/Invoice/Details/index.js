@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from '../styled';
-import AmountFooter from '../../../screens/InvoiceDetail/AmountFooter';
 import Address from '../Address';
 import DateGroup from '../DateGroup';
 import DetailGroup from '../DetailGroup';
 import DetailWithAddress from '../DetailWithAddress';
+import AmountFooter from '../AmountFooter';
 
 const Details = () => {
   return (
