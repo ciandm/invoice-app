@@ -45,7 +45,7 @@ function Form() {
   );
   const {
     formId,
-    formShown,
+    formStatus,
     handleSetNewFormId,
     handleShowForm,
   } = useInvoiceContext();
@@ -88,11 +88,11 @@ function Form() {
   };
 
   return (
-    <S.Wrapper shown={formShown}>
+    <S.Wrapper formStatus={formStatus}>
       {windowSize > 768 && (
-        <S.Overlay shown={formShown} onClick={() => handleShowForm()} />
+        <S.Overlay formStatus={formStatus} onClick={() => handleShowForm()} />
       )}
-      <S.FormContainer shown={formShown}>
+      <S.FormContainer formStatus={formStatus}>
         {windowSize < 768 ? (
           <Return handleButtonClick={handleShowForm} />
         ) : null}

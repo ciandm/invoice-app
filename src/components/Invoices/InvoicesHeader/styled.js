@@ -104,17 +104,6 @@ export const SlideOut = keyframes`
 `;
 
 export const Filters = styled.ul`
-  animation-name: ${({ open }) =>
-    open
-      ? css`
-          ${SlideIn}
-        `
-      : css`
-          ${SlideOut}
-        `};
-  animation-duration: 0.25s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: both;
   background-color: ${({ theme }) =>
     theme.darkMode
       ? theme.constants.colors.ebonyClay
@@ -127,9 +116,12 @@ export const Filters = styled.ul`
   cursor: initial;
   left: calc(0 - 50%);
   list-style: none;
+  opacity: ${({ open }) => (open ? 1 : 0)};
   padding: 2.4rem;
   position: absolute;
-  pointer-events: ${({ open }) => (!open ? 'none' : null)};
+  pointer-events: ${({ open }) => (open ? 'auto' : 'none')};
+  transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(2rem)')};
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
   top: 100%;
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {

@@ -2,27 +2,26 @@ import React, { useState, useContext, createContext } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const InvoiceContext = createContext({ id: '', shown: false });
+const InvoiceContext = createContext({ id: '', status: 'closed' });
 const useInvoiceContext = () => useContext(InvoiceContext);
 
 function InvoiceContextProvider({ children }) {
   const [formId, setFormId] = useState(uuidv4());
-  const [formShown, setFormShown] = useState(false);
+  const [formStatus, setFormStatus] = useState(false);
 
   const handleSetNewFormId = id => {
     setFormId(id);
   };
 
   const handleShowForm = () => {
-    setFormShown(prevState => !prevState);
-    console.log(formId);
+    setFormStatus(prevStatus => !prevStatus);
   };
 
   return (
     <InvoiceContext.Provider
       value={{
         formId,
-        formShown,
+        formStatus,
         handleSetNewFormId,
         handleShowForm,
       }}

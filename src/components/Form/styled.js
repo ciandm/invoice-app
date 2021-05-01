@@ -51,7 +51,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   position: absolute;
   top: 7.4rem;
-  pointer-events: ${({ shown }) => (shown ? 'auto' : 'none')};
+  pointer-events: ${({ formStatus }) => (formStatus ? 'auto' : 'none')};
   width: 100%;
   z-index: 1;
 
@@ -63,15 +63,7 @@ export const Wrapper = styled.div`
 `;
 
 export const FormContainer = styled.div`
-  animation-name: ${({ shown }) =>
-    shown === true
-      ? css`
-          ${slideFormIn}
-        `
-      : css`
-          ${slideFormOut}
-        `};
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
   animation-duration: 0.25s;
   animation-timing-function: ease-in-out;
   background-color: ${({ theme }) =>
@@ -83,6 +75,9 @@ export const FormContainer = styled.div`
   padding: 3.2rem 2.4rem;
   padding-bottom: 18rem;
   position: relative;
+  transition: transform 0.25s ease-in-out;
+  transform: ${({ formStatus }) =>
+    formStatus ? 'translateX(0)' : 'translateX(-100%)'};
 
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     border-radius: 0 2rem 2rem 0;
@@ -142,24 +137,16 @@ export const Form = styled.form`
 `;
 
 export const Overlay = styled.div`
-  animation-name: ${({ shown }) =>
-    shown
-      ? css`
-          ${fadeOverlayIn}
-        `
-      : css`
-          ${fadeOverlayOut}
-        `};
-  animation-duration: 0.25s;
-  animation-fill-mode: both;
-  animation-timing-function: ease-in-out;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   display: block;
   height: 100%;
   left: 0;
+  opacity: ${({ formStatus }) => (formStatus ? 1 : 0)};
   position: absolute;
+  pointer-events: ${({ formStatus }) => (formStatus ? 'auto' : 'none')};
   top: 0;
+  transition: opacity 0.25s ease-in-out;
   width: 100vw;
   z-index: -100;
 
