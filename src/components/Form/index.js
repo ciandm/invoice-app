@@ -15,7 +15,7 @@ import Button from '../shared/Button';
 import { useInvoiceContext } from '../../contexts/InvoiceContext';
 import Return from '../shared/Return';
 
-function Form() {
+function Form({ invoiceData }) {
   const windowSize = useWindowSize();
   const {
     register,
@@ -24,7 +24,28 @@ function Form() {
     control,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      invoice: {
+        date: invoiceData?.createdAt ?? '',
+        description: invoiceData?.description ?? '',
+      },
+      receiver: {
+        city: invoiceData?.clientAddress.city ?? '',
+        country: invoiceData?.clientAddress.country ?? '',
+        email: invoiceData?.clientEmail ?? '',
+        name: invoiceData?.clientName ?? '',
+        postCode: invoiceData?.clientAddress.postCode ?? '',
+        street: invoiceData?.clientAddress.street ?? '',
+      },
+      sender: {
+        city: invoiceData?.senderAddress.city ?? '',
+        country: invoiceData?.senderAddress.country ?? '',
+        postCode: invoiceData?.senderAddress.postCode ?? '',
+        street: invoiceData?.senderAddress.street ?? '',
+      },
+    },
+  });
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'items',
@@ -63,13 +84,37 @@ function Form() {
     }
   }, [append]);
 
-  // set as default value after form has mounted
+  // Check if there is invoice data from when user selects to edit an invoice, and set as default value after form has mounted
   useEffect(() => {
-    setTimeout(() => {
-      setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
-    }, [1000]);
+    if (invoiceData) {
+      const { paymentTerms } = invoiceData;
+      if (paymentTerms === 1) {
+        setTimeout(() => {
+          setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
+        }, [500]);
+      }
+      if (paymentTerms === 7) {
+        setTimeout(() => {
+          setValue('invoice.terms', { label: 'Net 7 Days', value: '7' });
+        }, [500]);
+      }
+      if (paymentTerms === 14) {
+        setTimeout(() => {
+          setValue('invoice.terms', { label: 'Net 14 Days', value: '14' });
+        }, [500]);
+      }
+      if (paymentTerms === 30) {
+        setTimeout(() => {
+          setValue('invoice.terms', { label: 'Net 30 Days', value: '30' });
+        }, [500]);
+      }
+    } else {
+      setTimeout(() => {
+        setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
+      }, [500]);
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [invoiceData]);
 
   const handleDiscardInvoice = () => {
     reset();
@@ -84,7 +129,7 @@ function Form() {
   };
 
   const handleFormSubmit = data => {
-    console.log(data);
+    console.log(data, formId);
   };
 
   return (
@@ -151,8 +196,8 @@ function Form() {
               />
               <Input
                 label="Street Address"
-                error={errors.receiver && errors.receiver.address}
-                {...register('receiver.address', {
+                error={errors.receiver && errors.receiver.street}
+                {...register('receiver.street', {
                   required: true,
                 })}
               />

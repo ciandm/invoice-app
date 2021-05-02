@@ -1,9 +1,15 @@
 import React from 'react';
 import InvoiceDetail from '../../src/screens/InvoiceDetail';
 import { getInvoiceById, getAllInvoiceId } from '../../data/dataFunctions';
+import InvoiceForm from '../../src/screens/InvoiceForm';
 
 function Invoice({ invoiceData }) {
-  return <InvoiceDetail invoiceData={invoiceData} />;
+  return (
+    <>
+      <InvoiceDetail invoiceData={invoiceData} />
+      <InvoiceForm invoiceData={invoiceData} />
+    </>
+  );
 }
 
 export default Invoice;
