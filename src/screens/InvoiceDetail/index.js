@@ -3,11 +3,12 @@ import Nav from '../../components/shared/Nav';
 import * as S from './styled';
 import Invoice from '../../components/Invoice';
 
-function InvoiceDetail() {
+function InvoiceDetail({ invoiceData }) {
+  console.log(invoiceData);
   return (
     <S.Container>
       <Nav />
-      <Invoice />
+      <Invoice invoiceData={invoiceData} />
     </S.Container>
   );
 }

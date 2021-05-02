@@ -15,6 +15,8 @@ export const Container = styled.section`
 export const Invoice = styled.div`
   @media ${({ theme }) => theme.constants.mediaQueries.tablet} {
     margin: 0 auto;
+    max-width: 73rem;
+    width: 100%;
   }
 `;
 

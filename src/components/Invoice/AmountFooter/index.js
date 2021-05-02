@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from '../styled';
 import useWindowSize from '../../../hooks/useWindowSize';
 
-const AmountFooterLarge = ({ items, totalAmount }) => {
+const AmountFooterLarge = ({ items, total }) => {
   return (
     <S.Footer>
       <S.ItemList>
@@ -25,13 +25,13 @@ const AmountFooterLarge = ({ items, totalAmount }) => {
       </S.ItemList>
       <S.AmountDue>
         <S.AmountSpan>Amount Due</S.AmountSpan>
-        <S.AmountTotal>£ {totalAmount.toFixed(2)} </S.AmountTotal>
+        <S.AmountTotal>£ {total.toFixed(2)} </S.AmountTotal>
       </S.AmountDue>
     </S.Footer>
   );
 };
 
-const AmountFooterSmall = ({ items, totalAmount }) => {
+const AmountFooterSmall = ({ items, total }) => {
   return (
     <S.Footer>
       <S.ItemList>
@@ -51,21 +51,18 @@ const AmountFooterSmall = ({ items, totalAmount }) => {
       </S.ItemList>
       <S.AmountDue>
         <S.AmountSpan>Amount Due</S.AmountSpan>
-        <S.AmountTotal>£ {totalAmount.toFixed(2)} </S.AmountTotal>
+        <S.AmountTotal>£ {total.toFixed(2)} </S.AmountTotal>
       </S.AmountDue>
     </S.Footer>
   );
 };
 
-const AmountFooter = ({ items }) => {
-  const totalAmount = items.reduce((acc, current) => {
-    return acc + current.price * current.quantity;
-  }, 0);
+const AmountFooter = ({ items, total }) => {
   const isTablet = useWindowSize() > 767;
   if (isTablet) {
-    return <AmountFooterLarge items={items} totalAmount={totalAmount} />;
+    return <AmountFooterLarge items={items} total={total} />;
   }
-  return <AmountFooterSmall items={items} totalAmount={totalAmount} />;
+  return <AmountFooterSmall items={items} total={total} />;
 };
 
 export default AmountFooter;

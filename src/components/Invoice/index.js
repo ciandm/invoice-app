@@ -7,7 +7,7 @@ import InvoiceButtons from './InvoiceButtons';
 import Return from '../shared/Return';
 import * as S from './styled';
 
-function Invoice() {
+function Invoice({ invoiceData }) {
   const isMobile = useWindowSize() < 767;
   const router = useRouter();
 
@@ -15,8 +15,8 @@ function Invoice() {
     <S.Invoice>
       <S.Wrapper>
         <Return handleButtonClick={() => router.push('/')} />
-        <StatusBar isMobile={isMobile} />
-        <Details />
+        <StatusBar isMobile={isMobile} status={invoiceData.status} />
+        <Details invoiceData={invoiceData} />
       </S.Wrapper>
       {isMobile ? <InvoiceButtons /> : null}
     </S.Invoice>
