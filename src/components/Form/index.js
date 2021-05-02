@@ -74,15 +74,18 @@ function Form({ invoiceData }) {
 
   useEffect(() => {
     if (!isMounted.current) {
-      append({
-        id: generateInvoiceNumber(),
-        name: '',
-        price: '',
-        quantity: '',
-      });
+      if (invoiceData) {
+        append([...invoiceData.items]);
+      } else {
+        append({
+          name: '',
+          price: '',
+          quantity: '',
+        });
+      }
       isMounted.current = true;
     }
-  }, [append]);
+  }, [append, invoiceData]);
 
   // Check if there is invoice data from when user selects to edit an invoice, and set as default value after form has mounted
   useEffect(() => {
@@ -119,7 +122,6 @@ function Form({ invoiceData }) {
   const handleDiscardInvoice = () => {
     reset();
     append({
-      id: generateInvoiceNumber(),
       name: '',
       price: '',
       quantity: '',
