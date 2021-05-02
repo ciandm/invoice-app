@@ -25,32 +25,31 @@ const Details = ({ invoiceData }) => {
   const formatDate = date => {
     // eslint-disable-next-line
     let [year, month, day] = date.split('-');
-    console.log(year, month, day);
-    if (month === '1') {
+    if (month === '01') {
       month = 'Jan';
     }
-    if (month === '2') {
+    if (month === '02') {
       month = 'Feb';
     }
-    if (month === '3') {
+    if (month === '03') {
       month = 'Mar';
     }
-    if (month === '4') {
+    if (month === '04') {
       month = 'Apr';
     }
-    if (month === '5') {
+    if (month === '05') {
       month = 'May';
     }
-    if (month === '6') {
+    if (month === '06') {
       month = 'Jun';
     }
-    if (month === '7') {
+    if (month === '07') {
       month = 'Jul';
     }
-    if (month === '8') {
+    if (month === '08') {
       month = 'Aug';
     }
-    if (month === '9') {
+    if (month === '09') {
       month = 'Sep';
     }
     if (month === '10') {
