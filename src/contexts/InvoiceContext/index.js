@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, useCallback, createContext } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,21 +18,28 @@ function InvoiceContextProvider({ children }) {
     setFormId(id);
   };
 
-  const handleShowForm = () => {
+  const handleCreateNewInvoice = useCallback(() => {
     setFormStatus(prevStatus => !prevStatus);
-  };
+    setFormEditing(false);
+  }, []);
 
-  const handleEditingForm = id => {
+  const handleShowForm = useCallback(() => {
+    setFormStatus(false);
+  }, []);
+
+  const handleEditingForm = useCallback(id => {
     setFormId(id);
     setFormStatus(true);
     setFormEditing(true);
-  };
+  }, []);
 
   return (
     <InvoiceContext.Provider
       value={{
+        formEditing,
         formId,
         formStatus,
+        handleCreateNewInvoice,
         handleEditingForm,
         handleSetNewFormId,
         handleShowForm,

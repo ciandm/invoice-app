@@ -11,7 +11,7 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
   const windowSize = useWindowSize();
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const { handleShowForm } = useInvoiceContext();
+  const { handleCreateNewInvoice } = useInvoiceContext();
 
   return (
     <S.Header>
@@ -66,7 +66,7 @@ function InvoicesHeader({ activeFilters, handleCheckboxClick, invoiceCount }) {
         <Button
           type="button"
           variation="one"
-          handleButtonClick={handleShowForm}
+          handleButtonClick={handleCreateNewInvoice}
         >
           {windowSize > 768 ? 'New Invoice' : 'New'}
         </Button>

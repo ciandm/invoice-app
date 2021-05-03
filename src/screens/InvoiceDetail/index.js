@@ -4,7 +4,6 @@ import * as S from './styled';
 import Invoice from '../../components/Invoice';
 
 function InvoiceDetail({ invoiceData }) {
-  console.log(invoiceData);
   return (
     <S.Container>
       <Nav />

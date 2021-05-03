@@ -11,9 +11,9 @@ import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
 import ItemList from './ItemList';
 import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
-import Button from '../shared/Button';
 import { useInvoiceContext } from '../../contexts/InvoiceContext';
 import Return from '../shared/Return';
+import FormButtons from './FormButtons';
 
 function Form({ invoiceData }) {
   const windowSize = useWindowSize();
@@ -65,9 +65,9 @@ function Form({ invoiceData }) {
     [remove]
   );
   const {
+    formEditing,
     formId,
     formStatus,
-    handleSetNewFormId,
     handleShowForm,
   } = useInvoiceContext();
   const isMounted = useRef(false);
@@ -119,7 +119,8 @@ function Form({ invoiceData }) {
     // eslint-disable-next-line
   }, [invoiceData]);
 
-  const handleDiscardInvoice = () => {
+  // Available when creating a new invoice
+  const handleDiscardInvoice = useCallback(() => {
     reset();
     append({
       name: '',
@@ -128,7 +129,17 @@ function Form({ invoiceData }) {
     });
     setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
     handleShowForm();
-  };
+  }, [append, handleShowForm, reset, setValue]);
+
+  // Available when editing an invoice
+  const handleCancelInvoice = useCallback(() => {
+    const { items } = invoiceData || [];
+    reset();
+    handleShowForm();
+    if (items) {
+      append([...items]);
+    }
+  }, [append, handleShowForm, invoiceData, reset]);
 
   const handleFormSubmit = data => {
     console.log(data, formId);
@@ -268,23 +279,11 @@ function Form({ invoiceData }) {
               register={register}
               items={fields}
             />
-            <S.Buttons>
-              <Button
-                variation="three"
-                type="button"
-                handleButtonClick={handleDiscardInvoice}
-              >
-                Discard
-              </Button>
-              <S.ButtonGroup>
-                <Button variation="four" type="button">
-                  Save as Draft
-                </Button>
-                <Button variation="two" type="submit">
-                  Save & Send
-                </Button>
-              </S.ButtonGroup>
-            </S.Buttons>
+            <FormButtons
+              formType={formEditing ? 'edit' : 'new'}
+              handleCancelInvoice={handleCancelInvoice}
+              handleDiscardInvoice={handleDiscardInvoice}
+            />
           </S.Form>
         </FormProvider>
       </S.FormContainer>

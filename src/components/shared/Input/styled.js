@@ -12,8 +12,10 @@ export const Group = styled.div`
 
 export const Label = styled.label`
   ${BodyOne};
-  color: ${({ theme }) =>
-    theme.darkMode
+  color: ${({ theme, error }) =>
+    error
+      ? theme.constants.colors.burntSienna
+      : theme.darkMode
       ? theme.constants.colors.baliHai
       : theme.constants.colors.shipCove};
   padding-bottom: 1rem;
