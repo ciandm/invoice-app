@@ -24,7 +24,7 @@ function InvoiceList({ activeFilters, invoices }) {
           );
         })
         .map(i => (
-          <InvoiceCard key={i.id} {...i} />
+          <InvoiceCard key={i._id} id={i._id} {...i} />
         ))}
     </S.InvoiceList>
   );

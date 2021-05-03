@@ -2,8 +2,10 @@ import React from 'react';
 import InvoiceDetail from '../../src/screens/InvoiceDetail';
 import { getInvoiceById, getAllInvoiceId } from '../../data/dataFunctions';
 import InvoiceForm from '../../src/screens/InvoiceForm';
+import { connectToDatabase } from '../../utils/mongodb';
 
 function Invoice({ invoiceData }) {
+  console.log(invoiceData);
   return (
     <>
       <InvoiceDetail invoiceData={invoiceData} />
@@ -15,11 +17,18 @@ function Invoice({ invoiceData }) {
 export default Invoice;
 
 export async function getStaticProps({ params }) {
-  const invoiceData = getInvoiceById(params.id);
+  const { db } = await connectToDatabase();
+
+  const data = await db
+    .collection('invoices')
+    .find({ _id: params.id })
+    .toArray();
+
+  const invoiceData = JSON.parse(JSON.stringify(data));
 
   return {
     props: {
-      invoiceData,
+      invoiceData: invoiceData[0],
     },
   };
 }

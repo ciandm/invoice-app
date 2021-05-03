@@ -16,16 +16,14 @@ const AmountFooterLarge = ({ items, total }) => {
           <S.ItemGridRow key={index}>
             <S.ItemTitle>{i.name}</S.ItemTitle>
             <S.ItemQuantity>{i.quantity}</S.ItemQuantity>
-            <S.ItemPrice>£ {i.price.toFixed(2)}</S.ItemPrice>
-            <S.ItemAmount>
-              £ {`${(i.price * i.quantity).toFixed(2)}`}
-            </S.ItemAmount>
+            <S.ItemPrice>£ {i.price}</S.ItemPrice>
+            <S.ItemAmount>£ {`${i.price * i.quantity}`}</S.ItemAmount>
           </S.ItemGridRow>
         ))}
       </S.ItemList>
       <S.AmountDue>
         <S.AmountSpan>Amount Due</S.AmountSpan>
-        <S.AmountTotal>£ {total.toFixed(2)} </S.AmountTotal>
+        <S.AmountTotal>£ {total} </S.AmountTotal>
       </S.AmountDue>
     </S.Footer>
   );
@@ -43,15 +41,13 @@ const AmountFooterSmall = ({ items, total }) => {
                 2
               )}`}</S.ItemQuantity>
             </S.ItemGroup>
-            <S.ItemAmount>
-              £ {`${(i.price * i.quantity).toFixed(2)}`}
-            </S.ItemAmount>
+            <S.ItemAmount>£ {`${i.price * i.quantity}`}</S.ItemAmount>
           </S.Item>
         ))}
       </S.ItemList>
       <S.AmountDue>
         <S.AmountSpan>Amount Due</S.AmountSpan>
-        <S.AmountTotal>£ {total.toFixed(2)} </S.AmountTotal>
+        <S.AmountTotal>£ {total} </S.AmountTotal>
       </S.AmountDue>
     </S.Footer>
   );

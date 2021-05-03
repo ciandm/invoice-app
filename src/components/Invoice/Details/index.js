@@ -13,7 +13,7 @@ const Details = ({ invoiceData }) => {
     clientName,
     createdAt,
     description,
-    id,
+    _id: id,
     items,
     paymentDue,
     paymentTerms,

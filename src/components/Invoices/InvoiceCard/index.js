@@ -24,7 +24,7 @@ function InvoiceCard({ clientName, id, paymentDue, status, total }) {
         </S.Id>
         <S.Name>{clientName}</S.Name>
         <S.Date>Due {getDateWords(paymentDue)}</S.Date>
-        <S.Price>£ {total.toFixed(2)}</S.Price>
+        <S.Price>£ {total}</S.Price>
         <S.Group>
           <Status status={status} margin />
           <S.Arrow>
