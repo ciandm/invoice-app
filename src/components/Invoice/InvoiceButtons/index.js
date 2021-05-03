@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Button from '../../shared/Button';
 import * as S from '../styled';
 import { useInvoiceContext } from '../../../contexts/InvoiceContext';
 
-const InvoiceButtons = () => {
+const InvoiceButtons = ({ handleMarkAsPaid }) => {
   const { handleEditingForm } = useInvoiceContext();
   const router = useRouter();
   const { id } = router.query;
@@ -21,7 +22,11 @@ const InvoiceButtons = () => {
       <Button variation="five" type="button">
         Delete
       </Button>
-      <Button variation="two" type="button">
+      <Button
+        variation="two"
+        type="button"
+        handleButtonClick={() => handleMarkAsPaid(id)}
+      >
         Mark as Paid
       </Button>
     </S.ButtonGroup>
@@ -29,3 +34,7 @@ const InvoiceButtons = () => {
 };
 
 export default InvoiceButtons;
+
+InvoiceButtons.propTypes = {
+  handleMarkAsPaid: PropTypes.func.isRequired,
+};

@@ -30,6 +30,20 @@ export default async (req, res) => {
 
       res.status(201).json({ data: invoice, success: true });
     } catch (e) {
+      console.log(e);
+      res.status(400).json({ success: false });
+    }
+  } else if (method === 'DELETE') {
+    try {
+      const deletedInvoice = await db
+        .collection('invoices')
+        .findOneAndDelete({ _id: id });
+
+      if (!deletedInvoice) {
+        return res.status(400).json({ success: false });
+      }
+      res.status(200).json({ data: {}, success: true });
+    } catch (e) {
       res.status(400).json({ success: false });
     }
   } else {

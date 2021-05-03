@@ -17,7 +17,7 @@ const AmountFooterLarge = ({ items, total }) => {
             <S.ItemTitle>{i.name}</S.ItemTitle>
             <S.ItemQuantity>{i.quantity}</S.ItemQuantity>
             <S.ItemPrice>£ {i.price}</S.ItemPrice>
-            <S.ItemAmount>£ {`${i.price * i.quantity}`}</S.ItemAmount>
+            <S.ItemAmount>£ {`${i.total}`}</S.ItemAmount>
           </S.ItemGridRow>
         ))}
       </S.ItemList>

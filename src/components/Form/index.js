@@ -142,6 +142,9 @@ function Form({ invoiceData }) {
   }, [append, handleShowForm, invoiceData, reset]);
 
   const handleFormSubmit = data => {
+    const invoiceTotal = data.items
+      .map(i => i.total)
+      .forEach(i => console.log(i));
     console.log(data, formId);
   };
 
