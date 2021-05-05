@@ -141,11 +141,60 @@ function Form({ invoiceData }) {
     }
   }, [append, handleShowForm, invoiceData, reset]);
 
+  const handleEditingInvoice = async data => {
+    try {
+      await fetch(`http://localhost:3000/api/invoices/${formId}`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleNewInvoice = () => {
+    console.log('new');
+  };
+
   const handleFormSubmit = data => {
-    const invoiceTotal = data.items
-      .map(i => i.total)
-      .forEach(i => console.log(i));
-    console.log(data, formId);
+    const { invoice, receiver, sender, items } = data;
+    const invoiceRefactoredData = {
+      clientAddress: {
+        city: receiver.city ?? '',
+        country: receiver.country ?? '',
+        postCode: receiver.postCode ?? '',
+        street: receiver.street ?? '',
+      },
+      clientEmail: receiver.email ?? '',
+      clientName: receiver.name ?? '',
+      createdAt: invoice.date ?? '',
+      description: invoice.description ?? '',
+      items: [...items] ?? [],
+      paymentDue: invoice.date ?? '',
+      paymentTerms: invoice.value ?? '',
+      senderAddress: {
+        city: sender.city ?? '',
+        country: sender.country ?? '',
+        postCode: sender.postCode ?? '',
+        street: sender.street ?? '',
+      },
+      status: 'pending',
+      total:
+        items
+          .reduce((acc, curr) => {
+            return acc + +curr.total;
+          }, 0)
+          .toFixed(2)
+          .toString() ?? 0,
+    };
+    if (formEditing) {
+      handleEditingInvoice(invoiceRefactoredData);
+    } else {
+      handleNewInvoice();
+    }
   };
 
   return (
