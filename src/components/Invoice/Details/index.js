@@ -23,7 +23,7 @@ const Details = ({ invoiceData }) => {
     total,
   } = invoiceData;
 
-  console.log(new Date(createdAt));
+  console.log(paymentDue);
 
   return (
     <S.Details>

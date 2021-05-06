@@ -10,10 +10,10 @@ import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
 import Select from '../shared/Select';
 import ItemList from './ItemList';
-import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 import { useInvoiceContext } from '../../contexts/InvoiceContext';
 import Return from '../shared/Return';
 import FormButtons from './FormButtons';
+import { getPaymentDueDate } from '../../../utils/formatDate';
 
 function Form({ invoiceData }) {
   const windowSize = useWindowSize();
@@ -23,6 +23,7 @@ function Form({ invoiceData }) {
     reset,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -52,10 +53,10 @@ function Form({ invoiceData }) {
   });
   const handleAppendNewItem = useCallback(() => {
     append({
-      id: generateInvoiceNumber(),
       name: '',
       price: '',
       quantity: '',
+      total: '',
     });
   }, [append]);
   const handleRemoveItem = useCallback(
@@ -81,6 +82,7 @@ function Form({ invoiceData }) {
           name: '',
           price: '',
           quantity: '',
+          total: '',
         });
       }
       isMounted.current = true;
@@ -126,6 +128,7 @@ function Form({ invoiceData }) {
       name: '',
       price: '',
       quantity: '',
+      total: '',
     });
     setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
     handleShowForm();
@@ -142,6 +145,7 @@ function Form({ invoiceData }) {
   }, [append, handleShowForm, invoiceData, reset]);
 
   const handleEditingInvoice = async data => {
+    console.log(data);
     try {
       await fetch(`http://localhost:3000/api/invoices/${formId}`, {
         body: JSON.stringify(data),
@@ -161,6 +165,15 @@ function Form({ invoiceData }) {
 
   const handleFormSubmit = data => {
     const { invoice, receiver, sender, items } = data;
+
+    // Here, I want to total up the price and quantity
+    // for each item before submission.
+    // Items should always have at least 1 item so map won't fail.
+    const updatedItems = items.map(i => ({
+      ...i,
+      price: (+i.price).toFixed(2).toString(),
+      total: (i.quantity * i.price).toFixed(2).toString(),
+    }));
     const invoiceRefactoredData = {
       clientAddress: {
         city: receiver.city ?? '',
@@ -172,9 +185,9 @@ function Form({ invoiceData }) {
       clientName: receiver.name ?? '',
       createdAt: invoice.date ?? '',
       description: invoice.description ?? '',
-      items: [...items] ?? [],
-      paymentDue: invoice.date ?? '',
-      paymentTerms: invoice.value ?? '',
+      items: [...updatedItems] ?? [],
+      paymentDue: getPaymentDueDate(invoice.date, invoice.terms.value) ?? '',
+      paymentTerms: +invoice.terms.value ?? 1,
       senderAddress: {
         city: sender.city ?? '',
         country: sender.country ?? '',
