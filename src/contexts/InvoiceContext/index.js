@@ -1,6 +1,6 @@
 import React, { useState, useContext, useCallback, createContext } from 'react';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
+import generateInvoiceNumber from '../../../utils/generateInvoiceNumber';
 
 const InvoiceContext = createContext({
   id: '',
@@ -10,7 +10,7 @@ const InvoiceContext = createContext({
 const useInvoiceContext = () => useContext(InvoiceContext);
 
 function InvoiceContextProvider({ children }) {
-  const [formId, setFormId] = useState(uuidv4());
+  const [formId, setFormId] = useState(generateInvoiceNumber());
   const [formStatus, setFormStatus] = useState(false);
   const [formEditing, setFormEditing] = useState(false);
 
@@ -21,6 +21,7 @@ function InvoiceContextProvider({ children }) {
   const handleCreateNewInvoice = useCallback(() => {
     setFormStatus(prevStatus => !prevStatus);
     setFormEditing(false);
+    setFormId(generateInvoiceNumber());
   }, []);
 
   const handleShowForm = useCallback(() => {

@@ -18,6 +18,7 @@ export default async (req, res) => {
   } else if (method === 'POST') {
     try {
       const invoice = await db.collection('invoices').insert(req.body);
+      console.log(req.body);
 
       res.status(201).json({ data: invoice, success: true });
     } catch (e) {

@@ -23,7 +23,6 @@ function Form({ invoiceData }) {
     reset,
     control,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -145,7 +144,6 @@ function Form({ invoiceData }) {
   }, [append, handleShowForm, invoiceData, reset]);
 
   const handleEditingInvoice = async data => {
-    console.log(data);
     try {
       await fetch(`http://localhost:3000/api/invoices/${formId}`, {
         body: JSON.stringify(data),
@@ -159,8 +157,18 @@ function Form({ invoiceData }) {
     }
   };
 
-  const handleNewInvoice = () => {
-    console.log('new');
+  const handleNewInvoice = async data => {
+    try {
+      await fetch('http://localhost:3000/api/invoices', {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleFormSubmit = data => {
@@ -175,6 +183,7 @@ function Form({ invoiceData }) {
       total: (i.quantity * i.price).toFixed(2).toString(),
     }));
     const invoiceRefactoredData = {
+      _id: formId,
       clientAddress: {
         city: receiver.city ?? '',
         country: receiver.country ?? '',
@@ -196,7 +205,7 @@ function Form({ invoiceData }) {
       },
       status: 'pending',
       total:
-        items
+        updatedItems
           .reduce((acc, curr) => {
             return acc + +curr.total;
           }, 0)
@@ -206,7 +215,7 @@ function Form({ invoiceData }) {
     if (formEditing) {
       handleEditingInvoice(invoiceRefactoredData);
     } else {
-      handleNewInvoice();
+      handleNewInvoice(invoiceRefactoredData);
     }
   };
 
