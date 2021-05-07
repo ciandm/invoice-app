@@ -5,7 +5,7 @@ import Button from '../../shared/Button';
 import * as S from '../styled';
 import { useInvoiceContext } from '../../../contexts/InvoiceContext';
 
-const InvoiceButtons = ({ handleMarkAsPaid }) => {
+const InvoiceButtons = ({ handleMarkAsPaid, handleDisplayDeleteModal }) => {
   const { handleEditingForm } = useInvoiceContext();
   const router = useRouter();
   const { id } = router.query;
@@ -19,7 +19,11 @@ const InvoiceButtons = ({ handleMarkAsPaid }) => {
       >
         Edit
       </Button>
-      <Button variation="five" type="button">
+      <Button
+        variation="five"
+        type="button"
+        handleButtonClick={handleDisplayDeleteModal}
+      >
         Delete
       </Button>
       <Button

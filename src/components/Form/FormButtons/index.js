@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../../shared/Button';
 import * as S from './styled';
 
-const NewFormButtons = ({ handleDiscardInvoice }) => {
+const NewFormButtons = ({ handleDiscardInvoice, handleSaveInvoiceAsDraft }) => {
   return (
     <S.Buttons>
       <Button
@@ -14,7 +14,11 @@ const NewFormButtons = ({ handleDiscardInvoice }) => {
         Discard
       </Button>
       <S.ButtonGroup>
-        <Button variation="four" type="button">
+        <Button
+          variation="four"
+          type="button"
+          handleButtonClick={handleSaveInvoiceAsDraft}
+        >
           Save as Draft
         </Button>
         <Button variation="two" type="submit">
@@ -48,12 +52,18 @@ const FormButtons = ({
   formType,
   handleDiscardInvoice,
   handleCancelInvoice,
+  handleSaveInvoiceAsDraft,
 }) => {
   if (formType === 'edit') {
     return <EditFormButtons handleCancelInvoice={handleCancelInvoice} />;
   }
 
-  return <NewFormButtons handleDiscardInvoice={handleDiscardInvoice} />;
+  return (
+    <NewFormButtons
+      handleDiscardInvoice={handleDiscardInvoice}
+      handleSaveInvoiceAsDraft={handleSaveInvoiceAsDraft}
+    />
+  );
 };
 
 export default FormButtons;

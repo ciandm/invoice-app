@@ -5,6 +5,7 @@ import {
   useFieldArray,
   FormProvider,
 } from 'react-hook-form';
+import format from 'date-fns/format';
 import * as S from './styled';
 import Input from '../shared/Input';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -23,6 +24,7 @@ function Form({ invoiceData }) {
     reset,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -157,21 +159,7 @@ function Form({ invoiceData }) {
     }
   };
 
-  const handleNewInvoice = async data => {
-    try {
-      await fetch('http://localhost:3000/api/invoices', {
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleFormSubmit = data => {
+  const handleRefactoringInputData = (data, draftMode = false) => {
     const { invoice, receiver, sender, items } = data;
 
     // Here, I want to total up the price and quantity
@@ -182,7 +170,7 @@ function Form({ invoiceData }) {
       price: (+i.price).toFixed(2).toString(),
       total: (i.quantity * i.price).toFixed(2).toString(),
     }));
-    const invoiceRefactoredData = {
+    return {
       _id: formId,
       clientAddress: {
         city: receiver.city ?? '',
@@ -203,7 +191,7 @@ function Form({ invoiceData }) {
         postCode: sender.postCode ?? '',
         street: sender.street ?? '',
       },
-      status: 'pending',
+      status: invoiceData?.status || (draftMode ? 'draft' : 'pending'),
       total:
         updatedItems
           .reduce((acc, curr) => {
@@ -212,6 +200,32 @@ function Form({ invoiceData }) {
           .toFixed(2)
           .toString() ?? 0,
     };
+  };
+
+  const handleNewInvoice = async data => {
+    try {
+      await fetch('http://localhost:3000/api/invoices', {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSaveInvoiceAsDraft = () => {
+    const currentRefactoredFormValues = handleRefactoringInputData(
+      getValues(),
+      true
+    );
+    console.log(currentRefactoredFormValues);
+  };
+
+  const handleFormSubmit = data => {
+    const invoiceRefactoredData = handleRefactoringInputData(data);
     if (formEditing) {
       handleEditingInvoice(invoiceRefactoredData);
     } else {
@@ -317,6 +331,7 @@ function Form({ invoiceData }) {
                 type="date"
                 label="Invoice Date"
                 error={errors.invoice && errors.invoice.date}
+                defaultValue={format(new Date(), 'yyyy-MM-dd')}
                 {...register('invoice.date', {
                   required: true,
                 })}
@@ -357,6 +372,7 @@ function Form({ invoiceData }) {
               formType={formEditing ? 'edit' : 'new'}
               handleCancelInvoice={handleCancelInvoice}
               handleDiscardInvoice={handleDiscardInvoice}
+              handleSaveInvoiceAsDraft={handleSaveInvoiceAsDraft}
             />
           </S.Form>
         </FormProvider>

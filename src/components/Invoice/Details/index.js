@@ -17,13 +17,9 @@ const Details = ({ invoiceData }) => {
     _id: id,
     items,
     paymentDue,
-    paymentTerms,
     senderAddress,
-    status,
     total,
   } = invoiceData;
-
-  console.log(paymentDue);
 
   return (
     <S.Details>

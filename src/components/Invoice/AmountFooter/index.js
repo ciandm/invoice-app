@@ -37,11 +37,9 @@ const AmountFooterSmall = ({ items, total }) => {
           <S.Item key={index}>
             <S.ItemGroup>
               <S.ItemTitle>{i.name}</S.ItemTitle>
-              <S.ItemQuantity>{`${i.quantity} x £${i.price.toFixed(
-                2
-              )}`}</S.ItemQuantity>
+              <S.ItemQuantity>{`${i.quantity} x £${i.price}`}</S.ItemQuantity>
             </S.ItemGroup>
-            <S.ItemAmount>£ {`${i.price * i.quantity}`}</S.ItemAmount>
+            <S.ItemAmount>£ {`${i.total}`}</S.ItemAmount>
           </S.Item>
         ))}
       </S.ItemList>
