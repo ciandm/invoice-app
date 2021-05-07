@@ -7,7 +7,7 @@ const StatusBar = ({
   isMobile,
   status,
   handleMarkAsPaid,
-  deleteModalActive,
+  handleDisplayDeleteModal,
 }) => {
   return (
     <S.StatusBar>
@@ -21,7 +21,12 @@ const StatusBar = ({
             : 'Draft'}
         </S.Status>
       </S.StatusGroup>
-      {isMobile ? null : <InvoiceButtons handleMarkAsPaid={handleMarkAsPaid} />}
+      {isMobile ? null : (
+        <InvoiceButtons
+          handleDisplayDeleteModal={handleDisplayDeleteModal}
+          handleMarkAsPaid={handleMarkAsPaid}
+        />
+      )}
     </S.StatusBar>
   );
 };

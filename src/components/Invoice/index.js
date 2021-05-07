@@ -49,7 +49,13 @@ function Invoice({ invoiceData }) {
         />
         <Details invoiceData={invoiceData} />
       </S.Wrapper>
-      {deleteModalActive ? <DeleteInvoice invoiceId={invoiceData._id} /> : null}
+      {deleteModalActive ? (
+        <DeleteInvoice
+          invoiceId={invoiceData._id}
+          handleDisplayDeleteModal={handleDisplayDeleteModal}
+          handleDeleteInvoice={handleDeleteInvoice}
+        />
+      ) : null}
       {isMobile ? (
         <InvoiceButtons
           handleMarkAsPaid={handleMarkAsPaid}

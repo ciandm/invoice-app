@@ -2,9 +2,18 @@ import React from 'react';
 import Button from '../../shared/Button';
 import * as S from './styled';
 
-const DeleteInvoice = ({ invoiceId }) => {
+const DeleteInvoice = ({
+  invoiceId,
+  handleDeleteInvoice,
+  handleDisplayDeleteModal,
+}) => {
+  // If overlay is clicked, close prompt also.
+  const handleOverlayClick = e => {
+    if (e.target !== e.currentTarget) return;
+    handleDisplayDeleteModal();
+  };
   return (
-    <S.Container>
+    <S.Container onClick={e => handleOverlayClick(e)}>
       <S.Modal>
         <S.Content>
           <S.Title>Confirm Deletion</S.Title>
@@ -13,8 +22,20 @@ const DeleteInvoice = ({ invoiceId }) => {
             cannot be undone.
           </S.Prompt>
           <S.ButtonGroup>
-            <Button variation="three">Cancel</Button>
-            <Button variation="five">Delete</Button>
+            <Button
+              type="button"
+              variation="three"
+              handleButtonClick={handleDisplayDeleteModal}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variation="five"
+              handleButtonClick={handleDeleteInvoice}
+            >
+              Delete
+            </Button>
           </S.ButtonGroup>
         </S.Content>
       </S.Modal>

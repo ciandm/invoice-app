@@ -22,6 +22,7 @@ export const Modal = styled.div`
       ? theme.constants.colors.blackPearl
       : theme.constants.colors.white};
   border-radius: 0.8rem;
+  max-width: 48rem;
   padding: 3.2rem;
 `;
 
@@ -51,4 +52,5 @@ export const ButtonGroup = styled.div`
   display: grid;
   gap: 0.8rem;
   grid-template-columns: max-content max-content;
+  margin-left: auto;
 `;
