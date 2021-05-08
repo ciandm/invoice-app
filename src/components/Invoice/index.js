@@ -35,7 +35,16 @@ function Invoice({ invoiceData }) {
     setDeleteModalActive(prevState => !prevState);
   };
 
-  const handleDeleteInvoice = () => {};
+  const handleDeleteInvoice = async () => {
+    try {
+      await fetch(`http://localhost:3000/api/invoices/${invoiceData._id}`, {
+        method: 'DELETE',
+      });
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <S.Invoice>

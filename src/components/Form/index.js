@@ -15,8 +15,10 @@ import { useInvoiceContext } from '../../contexts/InvoiceContext';
 import Return from '../shared/Return';
 import FormButtons from './FormButtons';
 import { getPaymentDueDate } from '../../../utils/formatDate';
+import { useRouter } from 'next/router';
 
 function Form({ invoiceData }) {
+  const router = useRouter();
   const windowSize = useWindowSize();
   const {
     register,
@@ -64,13 +66,15 @@ function Form({ invoiceData }) {
     id => {
       remove(id);
     },
-    [remove]
+    [remove],
   );
   const {
     formEditing,
     formId,
     formStatus,
     handleShowForm,
+    handleSetFormLocked,
+    handleSetFormUnlocked,
   } = useInvoiceContext();
   const isMounted = useRef(false);
 
@@ -92,35 +96,41 @@ function Form({ invoiceData }) {
 
   // Check if there is invoice data from when user selects to edit an invoice, and set as default value after form has mounted
   useEffect(() => {
+    invoiceData?.status === 'draft'
+      ? handleSetFormLocked()
+      : handleSetFormUnlocked();
+    setTimeout(() => {
+      setValue('invoice.date', format(new Date(), 'yyyy-MM-dd'));
+    }, 500);
     if (invoiceData) {
       const { paymentTerms } = invoiceData;
       if (paymentTerms === 1) {
         setTimeout(() => {
           setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
-        }, [500]);
+        }, 500);
       }
       if (paymentTerms === 7) {
         setTimeout(() => {
           setValue('invoice.terms', { label: 'Net 7 Days', value: '7' });
-        }, [500]);
+        }, 500);
       }
       if (paymentTerms === 14) {
         setTimeout(() => {
           setValue('invoice.terms', { label: 'Net 14 Days', value: '14' });
-        }, [500]);
+        }, 500);
       }
       if (paymentTerms === 30) {
         setTimeout(() => {
           setValue('invoice.terms', { label: 'Net 30 Days', value: '30' });
-        }, [500]);
+        }, 500);
       }
     } else {
       setTimeout(() => {
         setValue('invoice.terms', { label: 'Net 1 Day', value: '1' });
-      }, [500]);
+      }, 500);
     }
     // eslint-disable-next-line
-  }, [invoiceData]);
+  }, [invoiceData, handleSetFormLocked]);
 
   // Available when creating a new invoice
   const handleDiscardInvoice = useCallback(() => {
@@ -191,7 +201,11 @@ function Form({ invoiceData }) {
         postCode: sender.postCode ?? '',
         street: sender.street ?? '',
       },
-      status: invoiceData?.status || (draftMode ? 'draft' : 'pending'),
+      status: draftMode
+        ? 'draft'
+        : invoiceData?.status && invoiceData?.status !== 'draft'
+        ? invoiceData.status
+        : 'pending',
       total:
         updatedItems
           .reduce((acc, curr) => {
@@ -211,17 +225,28 @@ function Form({ invoiceData }) {
         },
         method: 'POST',
       });
+      router.push(`/${formId}`);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleSaveInvoiceAsDraft = () => {
+  const handleSaveInvoiceAsDraft = async () => {
     const currentRefactoredFormValues = handleRefactoringInputData(
       getValues(),
-      true
+      true,
     );
-    console.log(currentRefactoredFormValues);
+    try {
+      await fetch('http://localhost:3000/api/invoices', {
+        body: JSON.stringify(currentRefactoredFormValues),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleFormSubmit = data => {
@@ -242,7 +267,7 @@ function Form({ invoiceData }) {
         {windowSize < 768 ? (
           <Return handleButtonClick={handleShowForm} />
         ) : null}
-        <S.Title>New invoices</S.Title>
+        <S.Title>{formEditing ? `Edit #${formId}` : 'New invoice'}</S.Title>
         <FormProvider register={register} control={control} errors={errors}>
           <S.Form onSubmit={handleSubmit(handleFormSubmit)}>
             {/* Sender details */}
@@ -331,7 +356,6 @@ function Form({ invoiceData }) {
                 type="date"
                 label="Invoice Date"
                 error={errors.invoice && errors.invoice.date}
-                defaultValue={format(new Date(), 'yyyy-MM-dd')}
                 {...register('invoice.date', {
                   required: true,
                 })}

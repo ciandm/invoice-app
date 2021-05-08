@@ -42,8 +42,14 @@ const Details = ({ invoiceData }) => {
       </S.Header>
       <S.InvoiceDetails>
         <DateGroup>
-          <DetailGroup label="Invoice Date" title={formatDate(createdAt)} />
-          <DetailGroup label="Payment Due" title={formatDate(paymentDue)} />
+          <DetailGroup
+            label="Invoice Date"
+            title={createdAt ? formatDate(createdAt) : ''}
+          />
+          <DetailGroup
+            label="Payment Due"
+            title={paymentDue ? formatDate(paymentDue) : ''}
+          />
         </DateGroup>
         <DetailWithAddress>
           <DetailGroup label="Bill To" title={clientName} />

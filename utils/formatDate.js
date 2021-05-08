@@ -53,7 +53,9 @@ export const getPaymentDueDate = (date, terms = 7) => {
   // month begins from 0 so need to account for this in return statement below
   const month = getMonth(paymentDueDate);
   const day = getDate(paymentDueDate);
-  return `${year}-${month < 10 ? `0${month + 1}` : month + 1}-${day}`;
+  return `${year}-${month < 10 ? `0${month + 1}` : month + 1}-${
+    day < 10 ? `0${day}` : day
+  }`;
 };
 
 export default formatDate;
